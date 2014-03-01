@@ -58,9 +58,12 @@ cd hyperflow
 yes | npm install
 cd ..
 
+echo "hyperflow Installed"
+
 #installing executor
 curl -O https://dl.dropboxusercontent.com/u/81819/hyperflow-amqp-executor.gem
 sudo gem install --no-ri --no-rdoc hyperflow-amqp-executor.gem 
+echo "executor Installed"
 
 #installing mongage
 curl -O http://pegasus.isi.edu/montage/Montage_v3.3_patched_4.tar.gz
@@ -68,10 +71,4 @@ tar zxvf Montage_v3.3_patched_4.tar.gz
 cd Montage_v3.3_patched_4
 make
 cd ..
-
-: <<'END'
-git clone https://github.com/dice-cyfronet/hyperflow.git --depth 1 -b develop
-cd hyperflow
-npm install
-cd ..
-END
+echo "montage Installed"
