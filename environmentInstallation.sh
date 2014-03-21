@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#sudo ssh -v -i Piotr-key-pair-irleand.pem ubuntu@ec2-54-72-49-235.eu-west-1.compute.amazonaws.com "ls -al"
+#sudo ssh -v -i Piotr-key-pair-irleand.pem ubuntu@ec2-54-72-49-235.eu-west-1.compute.amazonaws.com 'bash -s' < local_script.sh
 #ssh root@MachineB 'bash -s' < local_script.sh
 echo "Entered VM"
 
@@ -21,7 +21,7 @@ redis-server --version
 
 #installing nodejs
 yes | sudo apt-get install python-software-properties python g++ make
-yes | sudo add-apt-repository ppa:chris-lea/node.js
+yes | sudo add-apt-repository ppa:chris-lea/node.js	
 yes | sudo apt-get update
 yes | sudo apt-get install nodejs
 

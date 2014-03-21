@@ -16,8 +16,6 @@ fog = Fog::Compute.new(
   :aws_secret_access_key => config["aws_secret_access_key"]
 )
 
-puts "test0"
-
 server = fog.servers.create(
   :image_id=>'ami-311f2b45',
   :flavor_id=>'t1.micro',
