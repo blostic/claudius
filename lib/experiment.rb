@@ -1,22 +1,41 @@
-require './Wrapper'
+class Experiment
+	attr_accessor :before, :after, :execute, :before_each, :after_each;	
+	
+  def initialize
+      @execute = Array.new
+      @before_each = Proc.new{}
+      @after = Proc.new{}
+      @before = Proc.new{}
+      @before_each = Proc.new{}
+      @after_each = Proc.new{}
+  end
+
+	def perform		
+			before.call
+      for task in execute do 
+        before_each.call
+        task.call
+        after_each.call
+      end
+			after.call
+	end
+
+end
 
 $experiments = Array.new
 
 def experiment(experimentName, &block)
-	$experiments.push Wrapper.new
-	puts "Start: #{experimentName} experiment"
+	$experiments.push Experiment.new
   	yield
-	puts "End: #{experimentName} experiment"
 end
 
 def parameters(&block)
-	puts "Start: execution"
+	puts "In parameters block"
   	yield
-	puts "End: execution"
 end
 
 def parameter(name, array)
-	puts "name: #{name} in #{array}"
+	puts "Parameter name: #{name} in #{array}"
 end
 
 def before(&block)
@@ -30,12 +49,12 @@ def after(&block)
 end
 
 def before_each(&block)
-	puts "Update beforeEach method in #{$experiments.length} experiment"
+	puts "Update before_each method in #{$experiments.length} experiment"
 	$experiments.last.before_each = block
 end
 
 def after_each(&block)
-	puts "Update afterEach method in #{$experiments.length} experiment"
+	puts "Update after_each method in #{$experiments.length} experiment"
 	$experiments.last.after_each = block
 end
 
@@ -44,11 +63,4 @@ def execute(&block)
 	$experiments.last.execute.push(block)
 end
 
-def performExperiments
-	i=0
-	for experiment in $experiments
-		i +=1
-		puts "Starting #{i} experiment"
-		experiment.perform
-	end
-end
+

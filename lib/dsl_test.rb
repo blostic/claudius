@@ -1,7 +1,6 @@
 require './benchmark'
 
 benchmark "Montage" do
-
 	providers do
 		provider "AWS" do
 			aws_access_key_id 		ENV['EC2_ACCESS_KEY']
@@ -10,62 +9,50 @@ benchmark "Montage" do
 			instances 't1.micro', 'm1.small'
 		end
 	end
-
 	experiments do
-
-		#install do 
-		#	package("nodejs", "ppa:chris-lea/node.js")
-		#end
-		
 		initiate do
+			puts "[initiating]"
 			`mkdir tests`
 		end
-
 		experiment "Montage" do
-
 			parameters do 
 				parameter("time", 1..20)
 				parameter("size", 2..5)
 			end
-		
 			before do
 				`mkdir ./tests/test_d`
-				puts "###FOLDER CREATED###"
+				puts "[before_experiment]"
 			end
-			
 			after do 
 				`rm -rf ./tests/test_d`
-				puts "###FOLDER REMOVED###"
+				puts "[after_experiment]"
 			end
-
 			execute do 
-				puts `who`
+				res = "	>" + `who`
+				res = res.gsub! "\n", "\n	>"
+				puts res[0..-3]
 			end
-
 			execute do 
-				puts `which cat`
+				puts "	>" + `which cat`
 			end
-			
+			before_each do 				
+				puts "[before_each]"
+			end
 			after_each do 
-				puts "###after_each###"
+				puts "[after_each]"
 			end
-		
 		end
-		
 		experiment "Ameba" do 
-			
 			execute do 
 				for i in 1..10
-					puts "Ameba #{i}"
+					puts "	>Ameba #{i}"
 				end
 			end
-
 		end
-
 		clean do 
 			`rm -rf ./tests`
+			puts "[cleaning]"
 		end
-
 	end
 end
 

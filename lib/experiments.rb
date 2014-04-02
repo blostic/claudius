@@ -1,4 +1,4 @@
-$mainExperiment = Wrapper.new
+$mainExperiment = Experiment.new
 
 def install (&block)
 	puts "Removing old packages" 
@@ -20,34 +20,30 @@ def package (package, repository)
 	end	
 end
 
-
 def instances(*types)
 	for type in types
-		puts "Otrzymany typ instancji: " + type
+		puts "I received the instance type: " + type
 	end
 end
 
 def experiments(&block)
-	puts "Start: experiments"
   	yield
-	puts "End: experiments"
 end
 
 def initiate(&block)
-	puts "Initiatig"
 	$mainExperiment.before = block
-	yield
 end
 
 def clean(&block)
-	puts "cleaning"
 	$mainExperiment.after = block
-	yield
 end
 
-def startBenchmarking
-	puts "BENCHMARKING"
-  	$mainExperiment.before.call
-  	performExperiments
-  	$mainExperiment.after.call
+def performExperiments
+	i=0
+	for experiment in $experiments
+		i +=1
+		puts "[Starting #{i} experiment]"
+		experiment.perform
+	end
 end
+
