@@ -1,4 +1,4 @@
-require './experiment'
+require './benchmark'
 
 benchmark "Montage" do
 
@@ -13,33 +13,33 @@ benchmark "Montage" do
 
 	experiments do
 
-		install do 
-			package("nodejs", "ppa:chris-lea/node.js")
-		end
+		#install do 
+		#	package("nodejs", "ppa:chris-lea/node.js")
+		#end
 		
 		initiate do
 			`mkdir tests`
 		end
 
-		parameters do 
-			parameter("time", 1..20)
-			parameter("size", 2..5)
-		end
-		
 		experiment "Montage" do
 
-			beforeEach do 
+			parameters do 
+				parameter("time", 1..20)
+				parameter("size", 2..5)
+			end
+		
+			before do 
 				`mkdir ./tests/test_d`
 			end
 			
-			execution do 
-				puts `ls -al`
-			end
-
-			afterEach do 
+			after do 
 				`rm -rf ./tests/test_d`
 			end
 			
+			execute do 
+				puts `ls -al`
+			end
+
 		end
 
 		clean do 

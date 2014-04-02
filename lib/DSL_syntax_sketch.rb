@@ -18,7 +18,6 @@ benchmark 'test'
           package 'ruby'
             version '2.0'
             repository 'fsdfs'
-            # check 'ruby --version' equal '2.0'
           package 'node'
             version '0.2.1'
         initScripts
