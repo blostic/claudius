@@ -1,43 +1,24 @@
-module Wrappable
-  class WrapperOptions
-    attr_reader :before, :after
-    def initialize(&block)
-      instance_eval(&block)
-    end
-    private
-    def before_run(method_name)
-      @before = method_name
-    end
-    def after_run(method_name)
-      @after = method_name
-    end
-  end
-
-  def wrap(original_method, &block)
-    wrapper_options = WrapperOptions.new(&block)
-    alias_method :old_method, original_method
-    define_method original_method do
-      send(wrapper_options.before)
-      send(:old_method)
-      send(wrapper_options.after)
-    end
-  end
-end
-
 class Wrapper
-
-	attr_accessor :before, :after, :execute;	
+	attr_accessor :before, :after, :execute, :before_each, :after_each;	
 	
-	def perform
-		if ! before.nil?
+  def initialize
+
+      @execute = Array.new
+      @before_each = Proc.new{}
+      @after = Proc.new{}
+      @before = Proc.new{}
+      @before_each = Proc.new{}
+      @after_each = Proc.new{}
+  end
+
+	def perform		
 			before.call
-		end
-		if ! execute.nil?  
-			execute.call
-		end
-		if ! after.nil? 
+      for task in execute do 
+        before_each.call
+        task.call
+        after_each.call
+      end
 			after.call
-		end
 	end
 
 end

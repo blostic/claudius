@@ -29,17 +29,19 @@ def after(&block)
 	$experiments.last.after = block
 end
 
-def beforeEach(&block)
+def before_each(&block)
 	puts "Update beforeEach method in #{$experiments.length} experiment"
+	$experiments.last.before_each = block
 end
 
-def afterEach(&block)
+def after_each(&block)
 	puts "Update afterEach method in #{$experiments.length} experiment"
+	$experiments.last.after_each = block
 end
 
 def execute(&block)
 	puts "Update exectution method in #{$experiments.length} experiment"
-	$experiments.last.execute = block
+	$experiments.last.execute.push(block)
 end
 
 def performExperiments
@@ -50,8 +52,3 @@ def performExperiments
 		experiment.perform
 	end
 end
-
-
-
-
-

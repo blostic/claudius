@@ -28,16 +28,36 @@ benchmark "Montage" do
 				parameter("size", 2..5)
 			end
 		
-			before do 
+			before do
 				`mkdir ./tests/test_d`
+				puts "###FOLDER CREATED###"
 			end
 			
 			after do 
 				`rm -rf ./tests/test_d`
+				puts "###FOLDER REMOVED###"
+			end
+
+			execute do 
+				puts `who`
+			end
+
+			execute do 
+				puts `which cat`
 			end
 			
+			after_each do 
+				puts "###after_each###"
+			end
+		
+		end
+		
+		experiment "Ameba" do 
+			
 			execute do 
-				puts `ls -al`
+				for i in 1..10
+					puts "Ameba #{i}"
+				end
 			end
 
 		end

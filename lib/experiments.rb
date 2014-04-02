@@ -46,7 +46,7 @@ def clean(&block)
 end
 
 def startBenchmarking
-	puts "Starts benchmarking"
+	puts "BENCHMARKING"
   	$mainExperiment.before.call
   	performExperiments
   	$mainExperiment.after.call
