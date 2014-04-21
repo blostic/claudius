@@ -8,20 +8,20 @@ $tmp_safely = false;
 
 def foreach(*args, &block)
 	parameters = args.first
-	tmp_node = ForEachNode.new($tmp_parent, parameters, block)
-	tmp_node.isSafely = $tmp_safely
-	tmp_node.parent = $tmp_parent
-	tmp_node.isAsynchronously = $tmp_asynchronously
-	$tmp_parent = tmp_node
+	$tmp_node = ForEachNode.new($tmp_parent, parameters, block)
+	$tmp_node.is_safely = $tmp_safely
+	$tmp_node.parent = $tmp_parent
+	$tmp_node.is_asynchronously = $tmp_asynchronously
+	$tmp_parent = $tmp_node
 	
 	$tmp_safely = false;
 	$tmp_asynchronously = false
 	
-	$list.push(tmp_node)
+	$list.push($tmp_node)
 	parameters.each do |parameter|
 		block.call parameter
 	end
-	$tmp_parent = tmp_node.parent
+	$tmp_parent = $tmp_node.parent
 end 
 
 def asynchronously()
@@ -34,6 +34,18 @@ def safely()
 	$tmp_safely = true;
 end
 
-for element in $list
-	print "[asyn: ", element.isAsynchronously, ", safely: ", element.isSafely, "]\n"
+def before(&block)
+	$tmp_node.before_list.push(block)
+end
+
+def after(&block)
+	$tmp_node.after_list.push(block)
+end
+
+def before_each(&block)
+	$tmp_node.before_each_list.push(block)
+end
+
+def after_each(&block)
+	$tmp_node.after_each_list.push(block)
 end
