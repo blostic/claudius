@@ -32,12 +32,12 @@ end
 
 def before(*args, &block)
 	$tmp_node.before_list.push(block)
-	#block.call
+	block.call
 end
 
 def after(&block)
 	$tmp_node.after_list.push(block)
-	# block.call
+	block.call
 end
 
 def foreach(*args, &block)
@@ -87,5 +87,5 @@ def execute(&block)
 	$tmp_asynchronously = false
 
 	$tmp_parent.node_list.push($tmp_node)
-	# block.call
+	block.call
 end

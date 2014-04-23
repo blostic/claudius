@@ -13,22 +13,22 @@ class Node
 		self.is_asynchronously = false
 	end
 
-	def run
-		if (this isinscance of Execution_Block ) do
+	# def run
+	# 	if (this isinscance of Execution_Block ) do
 
-		else do 
-			for before in @before_list do 
-				exec(before)
-			end
+	# 	else do 
+	# 		for before in @before_list do 
+	# 			exec(before)
+	# 		end
 
-			for node in @node_list do 
-				node.run()
-			end
+	# 		for node in @node_list do 
+	# 			node.run()
+	# 		end
 
-			for after in @after_list do 
-				after.call
-			end
-		end
+	# 		for after in @after_list do 
+	# 			after.call
+	# 		end
+	# 	end
 
-	end
+	# end
 end
