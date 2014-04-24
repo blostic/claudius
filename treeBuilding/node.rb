@@ -15,20 +15,19 @@ class Node
     end
 
     def run(indent = 0)
-        for before in @before_list do
-            print " "*indent 
-            before.call
+        before_list.each do |before|
+          print ' ' * indent
+          before.call
         end
 
-        for node in @node_list do
-            node.run(indent+2)
+        node_list.each do |node|
+          node.run(indent + 2)
         end
 
-        for after in @after_list do
-            print " "*indent 
-            after.call
+        after_list.each do |after|
+          print ' ' * indent
+          after.call
         end
     end
-
 end
 

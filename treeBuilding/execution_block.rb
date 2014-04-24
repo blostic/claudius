@@ -1,6 +1,6 @@
-require './Node.rb'
+require './node.rb'
 
-class Execution_Block < Node
+class ExecutionBlock < Node
 	attr_accessor :execution_instance
 	def initialize (parent, block)
 		super(parent, block)
@@ -8,8 +8,7 @@ class Execution_Block < Node
 	end
 
 	def run(indent)
-		print " "*indent
+		print ' '*indent
 		code_block.call
 	end
-
 end
