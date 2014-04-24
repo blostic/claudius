@@ -1,6 +1,6 @@
-require './Node.rb'
+require './node.rb'
 
-class On_Node < Node
+class OnNode < Node
 	attr_accessor :instance
 	def initialize (parent, block, instance)
 		super(parent, block)
