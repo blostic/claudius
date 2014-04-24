@@ -2,8 +2,14 @@ require './Node.rb'
 
 class Execution_Block < Node
 	attr_accessor :execution_instance
-	def initialize (parent, execution_instance, block)
+	def initialize (parent, block)
 		super(parent, block)
 		self.execution_instance = execution_instance
 	end
+
+	def run(indent)
+		print " "*indent
+		code_block.call
+	end
+
 end
