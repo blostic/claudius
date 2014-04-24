@@ -5,7 +5,7 @@ experiment 'Montage' do
     before do
         puts 'Prints when tree is executing'
     end
-    foreach ['instance 1', 'instance 2'] do |instance|
+    foreach ['instance 1', 'instance 2'], asynchronously do |instance|
         puts 'Before parse `on`'
         before do
             puts "Execute on #{instance}"
@@ -78,10 +78,10 @@ experiment 'Montage' do
                 end
             end
         end
-  end
-  after do
-    puts 'after experiment'
-  end
+    end
+    after do
+        puts 'after experiment'
+    end
 end
 
 $root.run

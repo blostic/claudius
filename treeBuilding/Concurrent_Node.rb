@@ -8,7 +8,7 @@ class Concurrent_Node < Node
 
         def run(indent)
             pids = []
-            
+
             for before in @before_list do
                 print " "*indent 
                 before.call
