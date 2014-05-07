@@ -1,4 +1,4 @@
 *.pem
 .idea/*
-./lib/.idea/*
-./treeBuilding/.idea/*
+lib/.idea/*
+treeBuilding/.idea/*
