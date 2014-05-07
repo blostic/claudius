@@ -1,6 +1,6 @@
-require './concurrent_node.rb'
-require './on_node.rb'
-require './execution_block.rb'
+require './treeBuilding/concurrent_node.rb'
+require './treeBuilding/on_node.rb'
+require './treeBuilding/execution_block.rb'
 
 $child_node
 $current_node = nil

@@ -1,4 +1,4 @@
-require './node.rb'
+require './treeBuilding/node.rb'
 
 class ConcurrentNode < Node
     attr_accessor :instance

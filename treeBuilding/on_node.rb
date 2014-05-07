@@ -1,4 +1,4 @@
-require './node.rb'
+require './treeBuilding/node.rb'
 
 class OnNode < Node
 	attr_accessor :instance

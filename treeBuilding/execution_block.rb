@@ -1,4 +1,4 @@
-require './node.rb'
+require './treeBuilding/node.rb'
 
 class ExecutionBlock < Node
 	attr_accessor :execution_instance
