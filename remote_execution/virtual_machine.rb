@@ -23,12 +23,11 @@ def s_ssh(session, commands)
   commands.each do |command|
     session.exec command
   end
-  session.loop()
-  session
+  session.loop
 end
 
 class VirtualMachine
-  attr_accessor :name, :host, :username, :args
+  attr_accessor :name, :host, :username, :args, :log_file
 
   def initialize(name, host, username, *args)
     @name = name

@@ -1,10 +1,20 @@
 require './treeBuilding/tree_execution_builder.rb'
-require './providers/provider.rb'
+require './remote_execution/provider.rb'
+
+config = load_user_lib("./user_config.json")
 
 experiment 'Montage' do
     provider do
-        manual('kali', '192.168.102.130', 'root', :password => 'toor', :port => 22)
+      cloud('aws', :provider => config["provider"],
+                    :region=>config["region"],
+                    :aws_access_key_id => config["aws_access_key_id"],
+                    :aws_secret_access_key => config["aws_secret_access_key"])
+      .create_instances(['t1.micro'], 'benek', './Piotr-key-pair-irleand.pem',
+                    :key_name => 'Piotr-key-pair-irleand',
+                    :groups => 'Piotr-irleand')
+     # manual('kali', '192.168.102.130', 'root', :password => 'toor', :port => 22)
     end
+    test
     #
     # puts 'Prints once when tree is building'
     # before do
