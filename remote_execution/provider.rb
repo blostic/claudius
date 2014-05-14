@@ -5,7 +5,7 @@ require 'json'
 $manual_instances = Hash.new
 $cloud_providers = Hash.new
 
-def provider (&block)
+def define_providers (&block)
   yield
 end
 
@@ -24,7 +24,7 @@ def load_user_lib( filename )
 end
 
 def test
-  # $manual_instances['kali'].invoke [['sleep 1'], ['sleep 1', 'sleep 1', 'sleep 1', 'sleep 1', 'sleep 1'], ['sleep 1', 'sleep 1']]
-  # $manual_instances['kali'].invoke [['cd; mkdir ./Desktop/test_dir']]
-  $cloud_providers['aws'].virtual_machines.each { |machine| machine.invoke [['cd; mkdir ./Desktop/test_dir'],['ls -al']] }
+  $manual_instances['kali'].invoke [['sleep 1'], ['sleep 1', 'sleep 1', 'sleep 4', 'sleep 1', 'sleep 1'], ['sleep 1', 'sleep 1']]
+  $manual_instances['kali'].invoke [['cd; mkdir ./Desktop/test_dir']]
+  #$cloud_providers['aws'].virtual_machines.each { |machine| machine.invoke [['cd; mkdir ./Desktop/test_dir'],['ls -al','ps', 'who']] }
 end

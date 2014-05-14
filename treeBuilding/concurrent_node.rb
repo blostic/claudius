@@ -7,7 +7,7 @@ class ConcurrentNode < Node
         super(parent, block)
     end
 
-    def run(indent)
+    def run(indent, instance)
         pids = []
 
         before_list.each do |before|
@@ -17,7 +17,7 @@ class ConcurrentNode < Node
 
         node_list.each do |node|
           pids << fork do
-            node.run(indent+2)
+            node.run(indent+2, instance)
           end
         end
 

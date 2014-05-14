@@ -7,6 +7,9 @@ $current_node = nil
 $tmp_asynchronously = false
 $tmp_safely = false
 $tmp_execution_place = 'localhost'
+$in_after_scope = false
+$in_before_scope = false
+
 
 $root
 
@@ -27,11 +30,17 @@ def safely
 end
 
 def before(*args, &block)
-    $current_node.before_list.push(block)
+    $in_before_scope = true
+    yield
+    $in_before_scope = false
+  #$current_node.before_list.push(block)
 end
 
 def after(*args, &block)
-    $current_node.after_list.push(block)
+    $in_after_scope = true
+    yield
+    $in_after_scope = false
+#    $current_node.after_list.push(block)
 end
 
 def foreach(parameters, *args, &block)
@@ -68,6 +77,18 @@ def execute(*args, &block)
   $child_node = ExecutionBlock.new($current_node, block)
   $child_node.is_safely = $tmp_safely
   $child_node.is_asynchronously = $tmp_asynchronously
-
   $current_node.node_list.push($child_node)
+  $current_node = $child_node
+  block.call
+  $current_node = $current_node.parent
+end
+
+def ssh(command)
+  if $in_before_scope then
+    $current_node.before_list.push(command)
+  elsif $in_after_scope then
+    $current_node.after_list.push(command)
+  else
+    $current_node.commands.push(command)
+  end
 end

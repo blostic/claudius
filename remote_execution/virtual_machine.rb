@@ -15,9 +15,7 @@ require 'net/ssh'
 #   session.loop
 # end
 
-# Synchronous ssh - function invokes commands on remote host.
-# Commands are invoked in given order.
-# (n+1)-th command will be invoked only if n-th command will be finished.
+
 
 def s_ssh(session, commands)
   commands.each do |command|
