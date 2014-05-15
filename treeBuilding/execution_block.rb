@@ -8,11 +8,10 @@ class ExecutionBlock < Node
 		self.execution_instance = execution_instance
 	end
 
-	def run(indent, instance)
-    commands.each do |command|
-      $manual_instances[instance].invoke [[command]]
-    end
-    # $manual_instances[instance].invoke [commands]
-		print ' '*indent
+	def run(instance)
+    # commands.each do |command|
+    #   $manual_instances[instance].invoke [[command]]
+    # end
+    $manual_instances[instance].invoke [commands]
 	end
 end

@@ -15,21 +15,24 @@ class Node
         self.commands = Array.new
     end
 
-    def run(indent, instance)
-      before_list.each do |before|
+    def run(instance)
+      before_list.each do |before_command|
         if instance.nil? then
-          `"#{before}"`
+          puts `"#{before_command}"`
+        else
+          $manual_instances[instance].invoke [[before_command]]
         end
       end
 
       node_list.each do |node|
-        node.run(indent + 2, instance)
+        node.run(instance)
       end
 
-      after_list.each do |after|
-        print ' ' * indent
+      after_list.each do |after_command|
         if instance.nil? then
-          `#{after}`
+           puts `#{after_command}`
+        else
+          $manual_instances[instance].invoke [[after_command]]
         end
       end
     end
