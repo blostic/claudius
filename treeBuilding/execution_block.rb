@@ -6,6 +6,7 @@ class ExecutionBlock < Node
 	def initialize (parent, block)
 		super(parent, block)
 		self.execution_instance = execution_instance
+    self.name = "[" + ExecutionBlock.to_s + "] " + self.number.to_s
 	end
 
 	def run(indent, instance)
@@ -14,5 +15,6 @@ class ExecutionBlock < Node
     end
     # $manual_instances[instance].invoke [commands]
 		print ' '*indent
-	end
+  end
+
 end

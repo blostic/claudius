@@ -16,13 +16,14 @@ $root
 def experiment(name, &block)
     $root = Node.new(nil,block)
     $current_node = $root
+    $root.name = name
     block.call
 end
 
 def asynchronously
-    $child_node = ConcurrentNode.new($current_node, nil)
-    $current_node.node_list.push($child_node)
-    $current_node = $child_node
+   $child_node = ConcurrentNode.new($current_node, nil)
+   $current_node.node_list.push($child_node)
+   $current_node = $child_node
 end
 
 def safely
@@ -30,9 +31,9 @@ def safely
 end
 
 def before(*args, &block)
-    $in_before_scope = true
-    yield
-    $in_before_scope = false
+  $in_before_scope = true
+  yield
+  $in_before_scope = false
   #$current_node.before_list.push(block)
 end
 
@@ -44,12 +45,12 @@ def after(*args, &block)
 end
 
 def foreach(parameters, *args, &block)
+  puts $current_node.name
   parameters.each do |parameter|
     $child_node = Node.new($current_node, block)
     $child_node.is_safely = $tmp_safely
     $child_node.is_asynchronously = $tmp_asynchronously
     $current_node.node_list.push($child_node)
-
     $current_node = $child_node
     block.call parameter
     $current_node = $current_node.parent

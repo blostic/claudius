@@ -1,10 +1,11 @@
 require './treeBuilding/node.rb'
-
+require 'graph.rb'
 class ConcurrentNode < Node
-    attr_accessor :instance
+      attr_accessor :instance
 
     def initialize (parent, block)
         super(parent, block)
+        self.name = 'Concurrently' + @@node_counter.to_s
     end
 
     def run(indent, instance)
@@ -28,4 +29,9 @@ class ConcurrentNode < Node
           after.call
         end
     end
+    #
+    # def print_tree(graph)
+    #   graph.edge('asd', 'stasd')
+    # end
+
 end

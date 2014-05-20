@@ -15,24 +15,35 @@ experiment 'Montage' do
     manual('kali', '172.16.0.104', 'root', :password => 'toor', :port => 22)
   end
 
-
   puts 'Prints once when tree is building'
-  foreach ['kali'], asynchronously do |instance|
+  before do
+    ssh "id"
+  end
+  after do
+    ssh "ls"
+  end
+  foreach ['kali', 'next'], asynchronously do |instance|
      before do
        ssh "who"
      end
     on instance do
+      before do
+        ssh "ps -aux"
+      end
+      after do
+        ssh "cat \"file.txt\""
+      end
       concurrent do
         execute do
-          i = 1
-          while (i < 3)
+          i = 0
+          while (i < 2)
             ssh "date"
             i += 1
           end
         end
         execute do
-          i = 1
-          while (i < 3)
+          i = 2
+          while (i < 5)
             ssh "ls"
             i += 1
           end
@@ -41,6 +52,5 @@ experiment 'Montage' do
     end
   end
 end
-
-$root.run(0, nil)
-$root.run(0, nil)
+#$root.run(0, nil)
+$root.print_tree
