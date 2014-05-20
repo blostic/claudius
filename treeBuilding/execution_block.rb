@@ -7,14 +7,21 @@ class ExecutionBlock < Node
 		super(parent, block)
 		self.execution_instance = execution_instance
     self.name = "[" + ExecutionBlock.to_s + "] " + self.number.to_s
-	end
+  end
 
-	def run(indent, instance)
+  def run(indent, instance)
     commands.each do |command|
       $manual_instances[instance].invoke [[command]]
     end
     # $manual_instances[instance].invoke [commands]
 		print ' '*indent
+  end
+
+	def run(instance)
+    # commands.each do |command|
+    #   $manual_instances[instance].invoke [[command]]
+    # end
+    $manual_instances[instance].invoke [commands]
   end
 
 end
