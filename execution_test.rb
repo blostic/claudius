@@ -33,6 +33,7 @@ experiment 'Montage' do
       after do
         ssh "cat \"file.txt\""
       end
+
       concurrent do
         execute do
           i = 0
