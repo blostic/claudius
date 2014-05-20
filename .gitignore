@@ -1,1 +1,5 @@
 *.pem
+.idea/*
+lib/.idea/*
+treeBuilding/.idea/*
+user_config.json
