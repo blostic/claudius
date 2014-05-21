@@ -22,7 +22,7 @@ class Node
 
   def run(instance)
     before_list.each do |before_command|
-      if instance.nil? then
+      if instance.nil?
         puts `"#{before_command}"`
       else
         $manual_instances[instance].invoke [[before_command]]
@@ -34,7 +34,7 @@ class Node
     end
 
     after_list.each do |after_command|
-      if instance.nil? then
+      if instance.nil?
         puts `#{after_command}`
       else
         $manual_instances[instance].invoke [[after_command]]
@@ -47,7 +47,7 @@ class Node
   end
 
   def draw_before_blocks(node, graph)
-    if node.before_list.length > 0 then
+    if node.before_list.length > 0
       name = '[BEFORE] '+"#{node.number}\n"
       node.before_list.each do |before|
         name += ">#{before}\n"
@@ -58,7 +58,7 @@ class Node
   end
 
   def draw_after_blocks(node, graph)
-    if node.after_list.length > 0 then
+    if node.after_list.length > 0
       name = '[AFTER] '+"#{node.number}\n"
       node.after_list.each do |after|
         name += ">#{after}\n"
@@ -85,7 +85,7 @@ class Node
     draw_after_blocks(node, graph)
   end
 
-  def print_tree(graph = nil)
+  def print_tree
     node = self
     digraph do
       node.paint(node, self)
