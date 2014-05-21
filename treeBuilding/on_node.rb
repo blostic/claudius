@@ -32,4 +32,11 @@ class OnNode < Node
     end
   end
 
+
+  def draw_block(graph)
+    graph.hexagon << graph.node(self.name)
+  end
+
+
+
 end

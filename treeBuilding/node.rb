@@ -42,7 +42,11 @@ class Node
     end
   end
 
-  def print_before_blocks(node, graph)
+  def draw_block(graph)
+    graph.rect << graph.node(self.name)
+  end
+
+  def draw_before_blocks(node, graph)
     if node.before_list.length > 0 then
       name = '[BEFORE] '+"#{node.number}\n"
       node.before_list.each do |before|
@@ -53,7 +57,7 @@ class Node
     end
   end
 
-  def print_after_blocks(node, graph)
+  def draw_after_blocks(node, graph)
     if node.after_list.length > 0 then
       name = '[AFTER] '+"#{node.number}\n"
       node.after_list.each do |after|
@@ -64,22 +68,21 @@ class Node
     end
   end
 
-  def print_child_nodes(node, graph)
+  def draw_child_nodes(node, graph)
     node.node_list.each do |child_node|
       child_node.commands.each do |command|
         child_node.name += "\n >" +command.to_s
       end
-      graph.rect << graph.node(child_node.name)
       graph.edge(node.name, child_node.name)
-      self.paint(child_node, graph)
+      paint(child_node, graph)
     end
   end
 
-  def paint(current_node, graph)
-    graph.rect << graph.node(current_node.name)
-    print_before_blocks(current_node, graph)
-    print_child_nodes(current_node, graph)
-    print_after_blocks(current_node, graph)
+  def paint(node, graph)
+    node.draw_block(graph)
+    draw_before_blocks(node, graph)
+    draw_child_nodes(node, graph)
+    draw_after_blocks(node, graph)
   end
 
   def print_tree(graph = nil)

@@ -35,9 +35,9 @@ class ConcurrentNode < Node
           end
         end
     end
-    #
-    # def print_tree(graph)
-    #   graph.edge('asd', 'stasd')
-    # end
+
+    def draw_block(graph)
+      graph.component << graph.node(self.name)
+    end
 
 end
