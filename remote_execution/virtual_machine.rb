@@ -15,8 +15,6 @@ require 'net/ssh'
 #   session.loop
 # end
 
-
-
 def s_ssh(session, commands)
   commands.each do |command|
     session.exec command

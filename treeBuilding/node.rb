@@ -2,7 +2,7 @@ require 'graph.rb'
 
 class Node
   attr_accessor :parent, :code_block, :is_safely, :node_list,
-                :before_list, :after_list, :is_asynchronously, :exec_block, :commands, :name, :number, :id
+                :before_list, :after_list, :is_asynchronously, :exec_block, :commands, :name, :id
 
   def initialize(parent, block)
     self.parent = parent
@@ -87,8 +87,13 @@ class Node
     draw_after_blocks(node, graph)
   end
 
+  def << (text)
+    puts "jakis randomowy tekst:" + text
+  end
+
   def print_tree
     node = self
+    << "ciekawe czy zadziala"
     digraph do
       node.paint(node, self)
       save 'execution_graph', 'png'
