@@ -15,7 +15,7 @@ class Node
     self.is_safely = false
     self.is_asynchronously = false
     self.commands = Array.new
-    self.name = 'Node' + @@node_counter.to_s
+    self.name = @@node_counter.to_s + "\nNode"
     self.number = @@node_counter
     @@node_counter+=1
   end
@@ -44,27 +44,32 @@ class Node
 
   def draw_block(graph)
     graph.rect << graph.node(self.name)
+    graph.node(name).label(name)
   end
 
   def draw_before_blocks(node, graph)
     if node.before_list.length > 0
-      name = '[BEFORE] '+"#{node.number}\n"
+      id = Random.rand(100000000000000000000000)
+      name = "[BEFORE]\n"
       node.before_list.each do |before|
         name += ">#{before}\n"
       end
-      graph.rect << graph.node(name)
-      graph.green << graph.edge(node.name, name)
+      graph.rect << graph.node(id)
+      graph.green << graph.edge(node.name, id)
+      graph.node(id).label(name)
     end
   end
 
   def draw_after_blocks(node, graph)
     if node.after_list.length > 0
-      name = '[AFTER] '+"#{node.number}\n"
+      id = Random.rand(100000000000000000000000)
+      name = "[AFTER]\n"
       node.after_list.each do |after|
         name += ">#{after}\n"
       end
-      graph.rect << graph.node(name)
-      graph.red << graph.edge(node.name, name)
+      graph.rect << graph.node(id)
+      graph.red << graph.edge(node.name, id)
+      graph.node(id).label(name)
     end
   end
 

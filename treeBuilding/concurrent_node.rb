@@ -38,6 +38,7 @@ class ConcurrentNode < Node
 
     def draw_block(graph)
       graph.component << graph.node(self.name)
+      graph.node(self.name).label('Concurrently')
     end
 
 end
