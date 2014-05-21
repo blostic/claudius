@@ -1,10 +1,8 @@
 require 'graph.rb'
 
 class Node
-  @@node_counter = 0
-
   attr_accessor :parent, :code_block, :is_safely, :node_list,
-                :before_list, :after_list, :is_asynchronously, :exec_block, :commands, :name, :number
+                :before_list, :after_list, :is_asynchronously, :exec_block, :commands, :name, :number, :id
 
   def initialize(parent, block)
     self.parent = parent
@@ -15,9 +13,8 @@ class Node
     self.is_safely = false
     self.is_asynchronously = false
     self.commands = Array.new
-    self.name = @@node_counter.to_s + "\nNode"
-    self.number = @@node_counter
-    @@node_counter+=1
+    self.id = self.to_s
+    self.name = '[Node]'
   end
 
   def run(instance)
@@ -43,8 +40,8 @@ class Node
   end
 
   def draw_block(graph)
-    graph.rect << graph.node(self.name)
-    graph.node(name).label(name)
+    graph.rect << graph.node(self.id)
+    graph.node(self.id).label(name)
   end
 
   def draw_before_blocks(node, graph)
@@ -55,7 +52,7 @@ class Node
         name += ">#{before}\n"
       end
       graph.rect << graph.node(id)
-      graph.green << graph.edge(node.name, id)
+      graph.green << graph.edge(node.id, id)
       graph.node(id).label(name)
     end
   end
@@ -68,7 +65,7 @@ class Node
         name += ">#{after}\n"
       end
       graph.rect << graph.node(id)
-      graph.red << graph.edge(node.name, id)
+      graph.red << graph.edge(node.id, id)
       graph.node(id).label(name)
     end
   end
@@ -78,7 +75,7 @@ class Node
       child_node.commands.each do |command|
         child_node.name += "\n >" +command.to_s
       end
-      graph.edge(node.name, child_node.name)
+      graph.edge(node.id, child_node.id)
       paint(child_node, graph)
     end
   end

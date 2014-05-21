@@ -5,14 +5,14 @@ class OnNode < Node
 	def initialize (parent, instance, block)
 		super(parent, block)
 		self.instance = instance
-    self.name = 'OnNode: ' + instance
+    self.name = "[OnNode]\n" + instance
   end
 
   def run(instance)
     instance = @instance
     before_list.each do |before_command|
       puts before_command
-      if instance.nil? then
+      if instance.nil?
         `#{before_command}`
       else
         $manual_instances[instance].invoke [[before_command]]
@@ -24,7 +24,7 @@ class OnNode < Node
     end
 
     after_list.each do |after_command|
-      if instance.nil? then
+      if instance.nil?
         `#{after_command}`
       else
         $manual_instances[instance].invoke [[after_command]]
@@ -32,11 +32,10 @@ class OnNode < Node
     end
   end
 
-
   def draw_block(graph)
-    graph.hexagon << graph.node(self.name)
+    graph.component << graph.node(id)
+    graph.node(id).label(name)
   end
-
 
 
 end

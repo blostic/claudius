@@ -5,14 +5,13 @@ class ConcurrentNode < Node
 
     def initialize (parent, block)
         super(parent, block)
-        self.name = 'Concurrently' + @@node_counter.to_s
     end
 
     def run(instance)
         pids = []
 
         before_list.each do |before_command|
-          if instance.nil? then
+          if instance.nil?
             puts `"#{before_command}"`
           else
             $manual_instances[instance].invoke [[before_command]]
@@ -28,7 +27,7 @@ class ConcurrentNode < Node
         pids.each{|pid| Process.waitpid(pid)}
 
         after_list.each do |after_command|
-          if instance.nil? then
+          if instance.nil?
             puts `"#{after_command}"`
           else
             $manual_instances[instance].invoke [[after_command]]
@@ -37,8 +36,8 @@ class ConcurrentNode < Node
     end
 
     def draw_block(graph)
-      graph.component << graph.node(self.name)
-      graph.node(self.name).label('Concurrently')
+      graph.component << graph.node(self.id)
+      graph.node(self.id).label('Concurrently')
     end
 
 end
