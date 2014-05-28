@@ -1,7 +1,7 @@
 require 'cloudmate'
 
-Cloudmate::experiment 'sdsdf' do
-  Cloudmate::define_providers do
+experiment 'sdsdf' do
+  define_providers do
     # cloud('aws', :provider => config['provider'],
     #               :region=>config['region'],
     #               :aws_access_key_id => config['aws_access_key_id'],
