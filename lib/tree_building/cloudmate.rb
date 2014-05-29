@@ -24,6 +24,7 @@ class Experiment
     $current_node = $root
     $root.name = name
     instance_eval(&block) if block
+    $root.print_tree
     $root.run(nil)
   end
 
@@ -41,14 +42,12 @@ class Experiment
     $in_before_scope = true
     yield
     $in_before_scope = false
-    #$current_node.before_list.push(block)
   end
 
   def after(*args, &block)
       $in_after_scope = true
       yield
       $in_after_scope = false
-  #    $current_node.after_list.push(block)
   end
 
   def foreach(parameters, *args, &block)
@@ -57,6 +56,8 @@ class Experiment
       $child_node = Node.new($current_node, block)
       $child_node.is_safely = $tmp_safely
       $child_node.is_asynchronously = $tmp_asynchronously
+      $child_node.name += "\nParameter: #{parameter}"
+
       $current_node.node_list.push($child_node)
       $current_node = $child_node
       block.call parameter

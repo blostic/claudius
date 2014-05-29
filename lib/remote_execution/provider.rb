@@ -16,7 +16,9 @@ class MachineManager
     end
     $virtual_machines = @virtual_machines
     puts $virtual_machines
-    wait_for_sshable
+    if @cloud_providers.length != 0
+      wait_for_sshable
+    end
   end
 
   def manual(name, host, username, *args)
