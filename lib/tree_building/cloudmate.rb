@@ -92,9 +92,9 @@ class Experiment
   end
 
   def ssh(command)
-    if $in_before_scope then
+    if $in_before_scope
       $current_node.before_list.push(command)
-    elsif $in_after_scope then
+    elsif $in_after_scope
       $current_node.after_list.push(command)
     else
       $current_node.commands.push(command)
