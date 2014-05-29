@@ -1,8 +1,10 @@
 require 'graph.rb'
+require 'awesome_print'
 
 class Node
   attr_accessor :parent, :code_block, :is_safely, :node_list,
-                :before_list, :after_list, :is_asynchronously, :exec_block, :commands, :name, :id
+                :before_list, :after_list, :is_asynchronously,
+                :exec_block, :commands, :name, :id
 
   def initialize(parent, block)
     self.parent = parent
@@ -18,6 +20,15 @@ class Node
   end
 
   def run(instance)
+    totalTime =
+        {
+            :name => self.name,
+            :before => 0,
+            :exec => [],
+            :after => 0
+        }
+
+    start = Time.now
     before_list.each do |before_command|
       if instance.nil?
         puts `"#{before_command}"`
@@ -25,11 +36,15 @@ class Node
         $virtual_machines[instance].invoke [[before_command]]
       end
     end
+    finish = Time.now
+
+    totalTime[:before] = finish - start
 
     node_list.each do |node|
-      node.run(instance)
+      totalTime[:exec].push(node.run(instance))
     end
 
+    start = Time.now
     after_list.each do |after_command|
       if instance.nil?
         puts `#{after_command}`
@@ -37,6 +52,11 @@ class Node
         $virtual_machines[instance].invoke [[after_command]]
       end
     end
+    finish = Time.now
+
+    totalTime[:after] = finish - start
+
+    return totalTime
   end
 
   def draw_block(graph)

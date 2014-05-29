@@ -1,6 +1,7 @@
 require 'concurrent_node.rb'
 require 'on_node.rb'
 require 'execution_node.rb'
+require 'awesome_print'
 
 def experiment(name, &block)
   experiment = Experiment.new(name, &block)
@@ -24,7 +25,6 @@ class Experiment
     $current_node = $root
     $root.name = name
     instance_eval(&block) if block
-    $root.run(nil)
   end
 
   def asynchronously
@@ -99,6 +99,12 @@ class Experiment
     else
       $current_node.commands.push(command)
     end
+  end
+
+  def run_with_time
+    result = $root.run(nil)
+    awesome_print result
+    return result
   end
 
 end

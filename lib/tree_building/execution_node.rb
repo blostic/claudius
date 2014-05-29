@@ -15,9 +15,26 @@ class ExecutionNode < Node
   end
 
   def run(instance)
-    commands.each do |command|
+    totalTime =
+        {
+          :name => self.name,
+          :total => 0,
+          :before => 0,
+          :exec => {},
+          :after => 0
+        }
+
+    start = Time.now
+    commands.each_with_index do  |command, index|
+      _start = Time.now
       $virtual_machines[instance].invoke [[command]]
+      _finish = Time.now
+      totalTime[:exec]["#{index}. " + command] = _finish - _start
     end
+    finish = Time.now
+
+    totalTime[:total] = finish - start
+    return totalTime
   end
 
 end
