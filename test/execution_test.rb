@@ -1,5 +1,4 @@
-require './treeBuilding/tree_execution_builder.rb'
-require './remote_execution/provider.rb'
+require 'cloudmate'
 
 config = load_user_lib('./user_config.json')
 

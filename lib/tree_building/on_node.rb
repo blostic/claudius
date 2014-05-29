@@ -1,4 +1,4 @@
-require './treeBuilding/node.rb'
+require 'node.rb'
 
 class OnNode < Node
 	attr_accessor :instance
@@ -15,11 +15,12 @@ class OnNode < Node
       if instance.nil?
         `#{before_command}`
       else
-        $manual_instances[instance].invoke [[before_command]]
+        $virtual_machines[instance].invoke [[before_command]]
       end
     end
 
     node_list.each do |node|
+      puts @instance
       node.run(@instance)
     end
 
@@ -27,7 +28,7 @@ class OnNode < Node
       if instance.nil?
         `#{after_command}`
       else
-        $manual_instances[instance].invoke [[after_command]]
+        $virtual_machines[instance].invoke [[after_command]]
       end
     end
   end
@@ -36,6 +37,5 @@ class OnNode < Node
     graph.component << graph.node(id)
     graph.node(id).label(name)
   end
-
 
 end

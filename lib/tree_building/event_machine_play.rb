@@ -14,7 +14,6 @@ end
 
 EM.run do
   EM.start_server 'localhost', 8080, Server do |conn|
-
     conn.options = {:my => 'options'}
     conn.status = :OK
   end

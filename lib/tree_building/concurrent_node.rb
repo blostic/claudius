@@ -1,5 +1,6 @@
-require './treeBuilding/node.rb'
+require 'node.rb'
 require 'graph.rb'
+
 class ConcurrentNode < Node
       attr_accessor :instance
 
@@ -14,7 +15,7 @@ class ConcurrentNode < Node
           if instance.nil?
             puts `"#{before_command}"`
           else
-            $manual_instances[instance].invoke [[before_command]]
+            $virtual_machines[instance].invoke [[before_command]]
           end
         end
 
@@ -30,7 +31,7 @@ class ConcurrentNode < Node
           if instance.nil?
             puts `"#{after_command}"`
           else
-            $manual_instances[instance].invoke [[after_command]]
+            $virtual_machines[instance].invoke [[after_command]]
           end
         end
     end
