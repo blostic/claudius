@@ -1,4 +1,4 @@
-require 'graph.rb'
+require 'graph'
 
 class Node
   attr_accessor :parent, :code_block, :is_safely, :node_list,

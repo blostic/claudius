@@ -33,7 +33,11 @@ class MachineManager
   end
 
   def wait_for_sshable
-    sleep(120)
+    cloud_providers.each do |provider|
+      provider.instances.each do |server|
+        server.wait_for { print '.'; sshable? }
+      end
+    end
   end
 
 end

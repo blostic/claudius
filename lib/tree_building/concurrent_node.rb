@@ -1,5 +1,5 @@
 require 'node.rb'
-require 'graph.rb'
+require 'graph'
 
 class ConcurrentNode < Node
       attr_accessor :instance
