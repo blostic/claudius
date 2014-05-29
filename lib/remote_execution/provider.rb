@@ -16,19 +16,22 @@ class MachineManager
     end
     $virtual_machines = @virtual_machines
     puts $virtual_machines
+    wait_for_sshable
   end
 
   def manual(name, host, username, *args)
     vm = VirtualMachine.new(host, username, *args)
-    # vm.wait_for_sshable
     @virtual_machines.store(name, vm)
-
   end
 
   def cloud(name, *args)
     cloud_provider = CloudProvider.new(name, *args)
     @cloud_providers.push(cloud_provider)
     cloud_provider
+  end
+
+  def wait_for_sshable
+    sleep(120)
   end
 
 end
