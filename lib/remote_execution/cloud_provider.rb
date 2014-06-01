@@ -2,12 +2,13 @@ require 'fog'
 require 'net/ssh'
 
 class CloudProvider
-  attr_accessor :provider_name, :provider, :virtual_machines, :counter
+  attr_accessor :provider_name, :provider, :virtual_machines, :instances
 
   def initialize(name, *args)
     @provider_name = name
     @provider = Fog::Compute.new(*args)
     @virtual_machines = Hash.new
+    @instances = Array.new
   end
 
   def create_instances(instances_types, *parameters)
@@ -18,6 +19,7 @@ class CloudProvider
       parameters.store(:flavor_id, instance_type.split('=>').first)
       name = ("#{@provider_name}:" + instance_type).split('=>')
       machine = @provider.servers.bootstrap(parameters)
+      @instances.push(machine)
       machine_id = @provider.servers.get(machine.id)
       vm = VirtualMachine.new(machine_id.public_ip_address, parameters[:username], :keys => parameters[:private_key_path])
       @virtual_machines.store(name.last, vm)
@@ -25,7 +27,7 @@ class CloudProvider
   end
 
   def destroy
-    @virtual_machines.each { |instance| instance.destroy }
+    @instances.each { |instance| instance.destroy }
   end
 
 end

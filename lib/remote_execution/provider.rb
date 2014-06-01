@@ -16,7 +16,9 @@ class MachineManager
     end
     $virtual_machines = @virtual_machines
     puts $virtual_machines
-    wait_for_sshable
+    if @cloud_providers.length != 0
+      wait_for_sshable
+    end
   end
 
   def manual(name, host, username, *args)
@@ -31,7 +33,11 @@ class MachineManager
   end
 
   def wait_for_sshable
-    sleep(120)
+    cloud_providers.each do |provider|
+      provider.instances.each do |server|
+        server.wait_for { print '.'; sshable? }
+      end
+    end
   end
 
 end

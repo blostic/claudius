@@ -1,7 +1,6 @@
 require 'concurrent_node.rb'
 require 'on_node.rb'
 require 'execution_node.rb'
-require 'awesome_print'
 
 def experiment(name, &block)
   experiment = Experiment.new(name, &block)
@@ -41,14 +40,12 @@ class Experiment
     $in_before_scope = true
     yield
     $in_before_scope = false
-    #$current_node.before_list.push(block)
   end
 
   def after(*args, &block)
       $in_after_scope = true
       yield
       $in_after_scope = false
-  #    $current_node.after_list.push(block)
   end
 
   def foreach(parameters, *args, &block)

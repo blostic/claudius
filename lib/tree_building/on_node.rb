@@ -53,7 +53,7 @@ class OnNode < Node
   end
 
   def draw_block(graph)
-    graph.component << graph.node(id)
+    graph.hexagon << graph.node(id)
     graph.node(id).label(name)
   end
 
