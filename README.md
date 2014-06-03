@@ -21,7 +21,7 @@ Or install it yourself as:
 To use the DSL in your code, please require the gem:
 
 ```ruby
-require 'claudius’'
+require 'claudius'
 ``` 
 
 Basic Usage
