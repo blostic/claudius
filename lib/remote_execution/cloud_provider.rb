@@ -12,7 +12,6 @@ class CloudProvider
   end
 
   def create_instances(instances_types, *parameters)
-    puts 'in creating instance block'
     parameters = parameters[0]
     instances_types.each do |instance_type|
       puts 'creating machine: ' + instance_type

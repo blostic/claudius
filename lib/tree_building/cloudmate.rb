@@ -24,6 +24,8 @@ class Experiment
     $current_node = $root
     $root.name = name
     instance_eval(&block) if block
+    $root.print_tree
+    run_with_time
   end
 
   def asynchronously
