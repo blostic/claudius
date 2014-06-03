@@ -25,9 +25,14 @@ class ExecutionNode < Node
         }
 
     start = Time.now
+
     commands.each_with_index do  |command, index|
       _start = Time.now
-      $virtual_machines[instance].invoke [[command]]
+      if instance.nil?
+        puts `#{command}`
+      else
+        $virtual_machines[instance].invoke [[command]]
+      end
       _finish = Time.now
       totalTime[:exec]["#{index}. " + command] = _finish - _start
     end

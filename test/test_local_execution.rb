@@ -14,7 +14,7 @@ class Test_local_execution < Test::Unit::TestCase
       end
     end
     result = `ls -la`
-    assert(true, result.include?("Hello123456"))
+    assert_equal(true, result.include?('Hello123456'), 'Test should create a folder in current directory')
   end
 
 end

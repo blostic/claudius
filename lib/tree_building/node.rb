@@ -31,7 +31,7 @@ class Node
     start = Time.now
     before_list.each do |before_command|
       if instance.nil?
-        puts `"#{before_command}"`
+        puts `#{before_command}`
       else
         $virtual_machines[instance].invoke [[before_command]]
       end
