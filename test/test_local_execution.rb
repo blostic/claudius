@@ -1,4 +1,4 @@
-require 'cloudmate'
+require 'claudius'
 require 'test/unit'
 
 class Test_local_execution < Test::Unit::TestCase

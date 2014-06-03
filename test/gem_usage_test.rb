@@ -1,4 +1,4 @@
-require 'cloudmate'
+require 'claudius'
 config = load_config('./user_config.json')
 experiment 'Montage' do
   define_providers do

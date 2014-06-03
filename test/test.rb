@@ -1,4 +1,4 @@
-require 'cloudmate'
+require 'claudius'
 require "awesome_print"
 
 experiment_tree = experiment 'sdsdf' do
