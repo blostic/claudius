@@ -1,18 +1,12 @@
-# Cloudmate
+# Claudius
 
-Claudusia is a easy-to-use domain specific language for cloud experiments. Language is built on [fog.io](http://fog.io), which provides flexible and powerful way to manage virtual machines instances on various cloude poviders. Connections with virtual machines are based on ssh. In order to present experiment flow, DSL generates readable graph of execution (using  [graph](https://github.com/seattlerb/graph)).
-
-To use the DSL in your code, let's require the gem:
-
-```ruby
-require 'cloudusia'
-``` 
+Claudius is a easy-to-use domain specific language for clouds experiments. Language is build on [fog.io](http://fog.io), which enables flexible and powerfull way to manage virtual machine instances on various cloude poviders. Connections with virtual machines is based on ssh. To provide information experiment flow, DSL generates readable graph of execution.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'cloudmate'
+    gem 'claudius'
 
 And then execute:
 
@@ -20,11 +14,63 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install cloudmate
+    $ gem install claudius
 
 ## Usage
 
-TODO: Write usage instructions here
+To use the DSL in your code, please require the gem:
+
+```ruby
+require 'claudius’'
+``` 
+
+Basic Usage
+---------
+
+Initiate experiment
+---------
+Getting started Claudius is extremely simple. First example illustrates how to perform experiment which writes Hello World! to TestFile in your current directory
+
+```ruby
+require 'claudius'
+experiment 'Hello' do
+execute do
+		ssh "echo Hello World! > TestFile"
+	end
+end
+```
+
+Specify instances
+---------
+To conduct an experiment remotely, You should define set of machines, which you would like to use. Claudius allows you to define 2 types of hosts - ones which are going to be created in clouds environment, and others which are already established (and you have access to them). To define machine and to maintain connection with them you should provide required parameters. For your convenience, you may store all yours parameters in json file, and recall them as it is presented in example.
+
+```ruby
+require 'cloudmate'
+config = load_config('./user_config.json')
+experiment 'Hello' do
+	define_providers do 
+	    cloud('aws',  :provider => config['provider'],
+	                  :region =>config['region'],
+	                  :endpoint => 'https://ec2.eu-west-1.amazonaws.com/',
+	                  :aws_access_key_id => config['aws_access_key_id'],
+	                  :aws_secret_access_key => config['aws_secret_access_key'])
+	    .create_instances(['t1.micro=>in1'],
+	                  :username => 'ubuntu',
+	                  :private_key_path =>'./Piotr-key-pair-irleand.pem',
+	                  :key_name => 'Piotr-key-pair-irleand',
+	                  :groups => ['Piotr-irleand'])
+	    manual('kali', '172.16.0.109', 'root', :password => 'toor')
+  	end
+  	foreach ['kali', 'in1'] do |instance|
+		on instance do
+			execute do
+				ssh "echo Hello World! > TestFile"
+			end
+		end
+	end
+end
+```
+
 
 ## Contributing
 
