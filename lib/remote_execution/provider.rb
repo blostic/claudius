@@ -42,7 +42,7 @@ class MachineManager
 
 end
 
-def load_user_lib( filename )
+def load_config( filename )
   File.open( filename, 'r' ) { |file_name|
     JSON.load(file_name)
   }

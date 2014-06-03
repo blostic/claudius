@@ -1,6 +1,6 @@
 require 'cloudmate'
 
-config = load_user_lib('./user_config.json')
+config = load_config('./user_config.json')
 
 experiment 'Montage' do
   define_providers do
