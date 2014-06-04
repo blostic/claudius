@@ -18,4 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_runtime_dependency "fog"
+  spec.add_runtime_dependency "net-ssh"
+  spec.add_runtime_dependency "graph"
 end
