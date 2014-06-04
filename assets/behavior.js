@@ -103,6 +103,35 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "Ruby"
             },
+            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/on_instance.rb",
+            "projectPath": "examples/on_instance.rb",
+            "targetPath": "examples/on_instance",
+            "pageTitle": "examples/on_instance",
+            "title": "on_instance"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Initiate experiment",
+                "slug": "initiate-experiment"
+              },
+              "depth": 2
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".rb", ".ru", ".gemspec"],
+              "pygmentsLexer": "ruby",
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "Ruby"
+            },
             "sourcePath": "/home/radk0s/Pulpit/claudius/examples/simple_program.rb",
             "projectPath": "examples/simple_program.rb",
             "targetPath": "examples/simple_program",
