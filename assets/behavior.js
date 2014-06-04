@@ -84,6 +84,74 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "depth": 2
         }
       ]
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "examples",
+        "title": "examples"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".rb", ".ru", ".gemspec"],
+              "pygmentsLexer": "ruby",
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "Ruby"
+            },
+            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/on_instance.rb",
+            "projectPath": "examples/on_instance.rb",
+            "targetPath": "examples/on_instance",
+            "pageTitle": "examples/on_instance",
+            "title": "on_instance"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Initiate experiment",
+                "slug": "initiate-experiment"
+              },
+              "depth": 2
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".rb", ".ru", ".gemspec"],
+              "pygmentsLexer": "ruby",
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "Ruby"
+            },
+            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/specify_instances.rb",
+            "projectPath": "examples/specify_instances.rb",
+            "targetPath": "examples/specify_instances",
+            "pageTitle": "examples/specify_instances",
+            "title": "specify_instances"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Specify instances",
+                "slug": "specify-instances"
+              },
+              "depth": 2
+            }
+          ]
+        }
+      ]
     }
   ];
 
