@@ -11,7 +11,7 @@ Install it as:
 
 ## Usage
 
-Check examples here: [link to gitsite//TODO]
+Check doc [here](http://blostic.github.io/claudius).
 
 
 
