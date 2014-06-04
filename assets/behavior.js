@@ -103,11 +103,11 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "Ruby"
             },
-            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/on_instance.rb",
-            "projectPath": "examples/on_instance.rb",
-            "targetPath": "examples/on_instance",
-            "pageTitle": "examples/on_instance",
-            "title": "on_instance"
+            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/simple_program.rb",
+            "projectPath": "examples/simple_program.rb",
+            "targetPath": "examples/simple_program",
+            "pageTitle": "examples/simple_program",
+            "title": "simple_program"
           },
           "depth": 2,
           "outline": [
