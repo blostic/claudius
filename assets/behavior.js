@@ -126,17 +126,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "title": "on_instance"
           },
           "depth": 2,
-          "outline": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Initiate experiment",
-                "slug": "initiate-experiment"
-              },
-              "depth": 2
-            }
-          ]
+          "outline": []
         }, {
           "type": "file",
           "data": {

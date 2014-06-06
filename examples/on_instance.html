@@ -1,5 +1,44 @@
-<!DOCTYPE html><html lang="en"><head><title>examples/on_instance</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="examples/on_instance"><meta name="groc-project-path" content="examples/on_instance.rb"><meta name="groc-github-url" content="https://github.com/blostic/claudius"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/blostic/claudius/blob/master/examples/on_instance.rb">examples/on_instance.rb</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="initiate-experiment">Initiate experiment</h2>
+<!DOCTYPE html><html lang="en"><head><title>examples/on_instance</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="examples/on_instance"><meta name="groc-project-path" content="examples/on_instance.rb"><meta name="groc-github-url" content="https://github.com/blostic/claudius"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/blostic/claudius/blob/master/examples/on_instance.rb">examples/on_instance.rb</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nb">require</span> <span class="s1">&#39;claudius&#39;</span>
+<span class="nb">require</span> <span class="s2">&quot;awesome_print&quot;</span>
 
-<p>Getting started Claudius is extremely simple. First example illustrates how to perform experiment which writes Hello World! to TestFile in your current directory</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To use the DSL in your code, please require the gem:</p></div></div><div class="code"><div class="wrapper"><span class="nb">require</span> <span class="s1">&#39;claudius&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We sepcified te <strong>experiment</strong> with name "Hello". Tree which represents our experiment was returned after parse DSL.</p></div></div><div class="code"><div class="wrapper"><span class="n">execution_tree</span> <span class="o">=</span> <span class="n">experiment</span> <span class="s1">&#39;Hello&#39;</span> <span class="k">do</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><strong>execute</strong> is a block where we can specify particular commands.</p></div></div><div class="code"><div class="wrapper">  <span class="n">execute</span> <span class="k">do</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Each starts with <strong>ssh</strong> following by string represets command.</p></div></div><div class="code"><div class="wrapper">    <span class="n">ssh</span> <span class="s2">&quot;echo Hello World! &gt; TestFile&quot;</span>
+<span class="n">experiment_tree</span> <span class="o">=</span> <span class="n">experiment</span> <span class="s1">&#39;sdsdf&#39;</span> <span class="k">do</span>
+  <span class="n">define_providers</span> <span class="k">do</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>cloud('aws', :provider => config['provider'],
+              :region=>config['region'],
+              :aws<em>access</em>key<em>id => config['aws</em>access<em>key</em>id'],
+              :aws<em>secret</em>access<em>key => config['aws</em>secret<em>access</em>key'])
+.create<em>instances(['t1.micro'], 'ubuntu', './Piotr-key-pair-irleand.pem',
+              :key</em>name => 'Piotr-key-pair-irleand',
+              :groups => 'Piotr-irleand')</p></div></div><div class="code"><div class="wrapper">    <span class="n">manual</span><span class="p">(</span><span class="s1">&#39;kali&#39;</span><span class="p">,</span> <span class="s1">&#39;192.168.1.116&#39;</span><span class="p">,</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="s1">&#39;toor&#39;</span><span class="p">,</span> <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="mi">22</span><span class="p">)</span>
   <span class="k">end</span>
-<span class="k">end</span></div></div></div></div></body></html>
+
+  <span class="n">foreach</span> <span class="o">[</span><span class="s1">&#39;kali&#39;</span><span class="p">,</span> <span class="s1">&#39;t1.micro&#39;</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">instance</span><span class="o">|</span>
+    <span class="n">foreach</span> <span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">param</span><span class="o">|</span>
+      <span class="n">before</span> <span class="k">do</span>
+      <span class="k">end</span>
+      <span class="n">on</span> <span class="n">instance</span> <span class="k">do</span>
+        <span class="n">execute</span> <span class="s1">&#39;install prerequisites&#39;</span> <span class="k">do</span>
+          <span class="n">ssh</span> <span class="s2">&quot;curl -O http://pegasus.isi.edu/montage/Montage_v3.3_patched_4.tar.gz&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;tar zxvf Montage_v3.3_patched_4.tar.gz&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;cd Montage_v3.3_patched_4&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;make&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;cd ..&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;git clone https://github.com/dice-cyfronet/hyperflow.git --depth 1 -b develop&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;cd hyperflow&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;npm install&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;curl -O https://dl.dropboxusercontent.com/u/81819/hyperflow-amqp-executor.gem&quot;</span>
+          <span class="n">ssh</span> <span class="s2">&quot;echo toor | sudo -S gem2.0 install --no-ri --no-rdoc hyperflow-amqp-executor.gem&quot;</span>
+        <span class="k">end</span>
+        <span class="n">execute</span> <span class="k">do</span>
+          <span class="n">ssh</span> <span class="s2">&quot;date&quot;</span>
+        <span class="k">end</span>
+        <span class="n">execute</span> <span class="k">do</span>
+          <span class="n">ssh</span> <span class="s2">&quot;echo </span><span class="si">#{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+      <span class="n">after</span> <span class="k">do</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">experiment_tree</span><span class="o">.</span><span class="n">export_tree</span></div></div></div></div></body></html>
