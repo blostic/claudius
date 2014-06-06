@@ -9,23 +9,27 @@ class ExecutionNode < Node
     self.name = '[' + ExecutionNode.to_s + ']'
   end
 
+
+  def init_time
+    @total_time =
+        {
+            :name => @name,
+            :before => 0,
+            :exec => [],
+        }
+
+  end
+
   def draw_block(graph)
     graph.rect << graph.node(id)
     graph.node(id).label(name)
   end
 
+
   def run(instance)
-    totalTime =
-        {
-          :name => self.name,
-          :total => 0,
-          :before => 0,
-          :exec => {},
-          :after => 0
-        }
+    init_time
 
     start = Time.now
-
     commands.each_with_index do  |command, index|
       _start = Time.now
       if instance.nil?
@@ -34,12 +38,12 @@ class ExecutionNode < Node
         $virtual_machines[instance].invoke [[command]]
       end
       _finish = Time.now
-      totalTime[:exec]["#{index}. " + command] = _finish - _start
+      @total_time[:exec].push( {:cmd => command, :time => _finish - _start})
     end
     finish = Time.now
 
-    totalTime[:total] = finish - start
-    return totalTime
+    @total_time[:total] = finish - start
+    return @total_time
   end
 
 end

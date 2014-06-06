@@ -19,15 +19,27 @@ class Node
     self.name = '[Node]'
   end
 
-  def run(instance)
-    totalTime =
+  def init_time
+    @total_time =
         {
-            :name => self.name,
-            :before => 0,
-            :exec => [],
-            :after => 0
+            :name => @name,
+            :exec => []
         }
 
+  end
+
+  def run(instance)
+    init_time
+    before_exec(instance, @total_time)
+    node_list.each do |node|
+      @total_time[:exec].push(node.run(instance))
+    end
+    after_exec(instance, @total_time)
+
+    return @total_time
+  end
+
+  def before_exec(instance, total_time)
     start = Time.now
     before_list.each do |before_command|
       if instance.nil?
@@ -38,12 +50,10 @@ class Node
     end
     finish = Time.now
 
-    totalTime[:before] = finish - start
+    total_time[:before] = finish - start
+  end
 
-    node_list.each do |node|
-      totalTime[:exec].push(node.run(instance))
-    end
-
+  def after_exec(instance, total_time)
     start = Time.now
     after_list.each do |after_command|
       if instance.nil?
@@ -53,10 +63,7 @@ class Node
       end
     end
     finish = Time.now
-
-    totalTime[:after] = finish - start
-
-    return totalTime
+    total_time[:after] = finish - start
   end
 
   def draw_block(graph)
@@ -107,11 +114,11 @@ class Node
     draw_after_blocks(node, graph)
   end
 
-  def print_tree
+  def print_tree(path)
     node = self
     digraph do
       node.paint(node, self)
-      save 'execution_graph', 'png'
+      save path, 'png'
     end
   end
 

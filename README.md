@@ -7,7 +7,9 @@ Claudius is a easy-to-use domain specific language for clouds experiments. Langu
 
 Install it as:
 
-    $ sudo gem install claudius-0.0.1.gem
+    $ sudo gem install claudius
+
+If you want export execution tree to image you need [Graphivz](http://www.graphviz.org).
 
 ## Usage
 

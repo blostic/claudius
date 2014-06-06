@@ -1,15 +1,46 @@
-
-# Initiate experiment
-# ---------
-# Getting started Claudius is extremely simple. First example illustrates how to perform experiment which writes Hello World! to TestFile in your current directory
-
-# To use the DSL in your code, please require the gem:
 require 'claudius'
-# We sepcified te __experiment__ with name "Hello". Tree which represents our experiment was returned after parse DSL.
-execution_tree = experiment 'Hello' do
-# __execute__ is a block where we can specify particular commands.
-  execute do
-# Each starts with __ssh__ following by string represets command.
-    ssh "echo Hello World! > TestFile"
+require "awesome_print"
+
+experiment_tree = experiment 'sdsdf' do
+  define_providers do
+    # cloud('aws', :provider => config['provider'],
+    #               :region=>config['region'],
+    #               :aws_access_key_id => config['aws_access_key_id'],
+    #               :aws_secret_access_key => config['aws_secret_access_key'])
+    # .create_instances(['t1.micro'], 'ubuntu', './Piotr-key-pair-irleand.pem',
+    #               :key_name => 'Piotr-key-pair-irleand',
+    #               :groups => 'Piotr-irleand')
+    manual('kali', '192.168.1.116', 'root', :password => 'toor', :port => 22)
+  end
+
+  foreach ['kali', 't1.micro'] do |instance|
+    foreach ['a', 'b'] do |param|
+      before do
+      end
+      on instance do
+        execute 'install prerequisites' do
+          ssh "curl -O http://pegasus.isi.edu/montage/Montage_v3.3_patched_4.tar.gz"
+          ssh "tar zxvf Montage_v3.3_patched_4.tar.gz"
+          ssh "cd Montage_v3.3_patched_4"
+          ssh "make"
+          ssh "cd .."
+          ssh "git clone https://github.com/dice-cyfronet/hyperflow.git --depth 1 -b develop"
+          ssh "cd hyperflow"
+          ssh "npm install"
+          ssh "curl -O https://dl.dropboxusercontent.com/u/81819/hyperflow-amqp-executor.gem"
+          ssh "echo toor | sudo -S gem2.0 install --no-ri --no-rdoc hyperflow-amqp-executor.gem"
+        end
+        execute do
+          ssh "date"
+        end
+        execute do
+          ssh "echo #{param}"
+        end
+      end
+      after do
+      end
+    end
   end
 end
+
+experiment_tree.export_tree

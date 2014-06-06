@@ -9,47 +9,17 @@ class OnNode < Node
   end
 
   def run(instance)
-    totalTime =
-        {
-            :name => self.name,
-            :before => 0,
-            :exec => [],
-            :after => 0
-        }
-    instance = @instance
+    init_time
 
-    start = Time.now
-    before_list.each do |before_command|
-      puts before_command
-      if instance.nil?
-        `#{before_command}`
-      else
-        $virtual_machines[instance].invoke [[before_command]]
-      end
-    end
-    finish = Time.now
-
-    totalTime[:before] = finish - start
-
+    before_exec(@instance, @total_time)
     node_list.each do |node|
       puts @instance
-      totalTime[:exec].push(node.run(@instance))
+      @total_time[:exec].push(node.run(@instance))
     end
 
+    after_exec(@instance, @total_time)
 
-    start = Time.now
-    after_list.each do |after_command|
-      if instance.nil?
-        `#{after_command}`
-      else
-        $virtual_machines[instance].invoke [[after_command]]
-      end
-    end
-    finish = Time.now
-
-    totalTime[:after] = finish - start
-
-    return totalTime
+    return @total_time
   end
 
   def draw_block(graph)

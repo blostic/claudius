@@ -10,46 +10,20 @@ class ConcurrentNode < Node
 
     def run(instance)
         pids = []
-        totalTime =
-            {
-                :name => self.name,
-                :before => 0,
-                :exec => [],
-                :after => 0
-            }
+        init_time
 
-        start = Time.now
-        before_list.each do |before_command|
-          if instance.nil?
-            puts `"#{before_command}"`
-          else
-            $virtual_machines[instance].invoke [[before_command]]
-          end
-        end
-        finish = Time.now
-
-        totalTime[:before] = finish - start
+        before_exec(instance, @total_time)
 
         node_list.each do |node|
           pids << fork do
-            totalTime[:exec].push(node.run(instance))
+            @total_time[:exec].push(node.run(instance))
           end
         end
 
         pids.each{|pid| Process.waitpid(pid)}
 
-        start = Time.now
-        after_list.each do |after_command|
-          if instance.nil?
-            puts `"#{after_command}"`
-          else
-            $virtual_machines[instance].invoke [[after_command]]
-          end
-        end
-        finish = Time.now
-
-        totalTime[:after] = finish - start
-        return totalTime
+        after_exec(instance, @total_time)
+        return @total_time
     end
 
     def draw_block(graph)
