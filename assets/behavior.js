@@ -13,7 +13,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/home/radk0s/Pulpit/claudius/README.md",
+        "sourcePath": "/home/blost/Dropbox/Inzynierka/cloud_gem/claudius/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -119,7 +119,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "Ruby"
             },
-            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/on_instance.rb",
+            "sourcePath": "/home/blost/Dropbox/Inzynierka/cloud_gem/claudius/examples/on_instance.rb",
             "projectPath": "examples/on_instance.rb",
             "targetPath": "examples/on_instance",
             "pageTitle": "examples/on_instance",
@@ -138,7 +138,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "Ruby"
             },
-            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/simple_program.rb",
+            "sourcePath": "/home/blost/Dropbox/Inzynierka/cloud_gem/claudius/examples/ping.rb",
+            "projectPath": "examples/ping.rb",
+            "targetPath": "examples/ping",
+            "pageTitle": "examples/ping",
+            "title": "ping"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Specify instances",
+                "slug": "specify-instances"
+              },
+              "depth": 2
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".rb", ".ru", ".gemspec"],
+              "pygmentsLexer": "ruby",
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "Ruby"
+            },
+            "sourcePath": "/home/blost/Dropbox/Inzynierka/cloud_gem/claudius/examples/simple_program.rb",
             "projectPath": "examples/simple_program.rb",
             "targetPath": "examples/simple_program",
             "pageTitle": "examples/simple_program",
@@ -167,7 +196,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "Ruby"
             },
-            "sourcePath": "/home/radk0s/Pulpit/claudius/examples/specify_instances.rb",
+            "sourcePath": "/home/blost/Dropbox/Inzynierka/cloud_gem/claudius/examples/specify_instances.rb",
             "projectPath": "examples/specify_instances.rb",
             "targetPath": "examples/specify_instances",
             "pageTitle": "examples/specify_instances",
