@@ -1,7 +1,7 @@
 
-# Specify instances
+# Ping 
 # ---------
-# To conduct an experiment remotely, You should define set of machines, which you would like to use. Claudius allows you to define 2 types of hosts - ones which are going to be created in clouds environment, and others which are already established (and you have access to them). To define machine and to maintain connection with them you should provide required parameters. For your convenience, you may store all yours parameters in json file, and recall them as it is presented in example.
+# This example shows how to conduct simple experiment with ping command.
 #
 
 require 'claudius'
