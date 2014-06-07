@@ -1,4 +1,3 @@
-require 'awesome_print'
 # Initiate experiment
 # ---------
 #
@@ -20,7 +19,7 @@ experiment 'Hello Experiment' do
   end
 end
 
-# execute tree and print result time
+# execute tree and print result time using *awesome_print*
 ap execution_tree.run
 # export tree to tree.png and tree.dot
 execution_tree.export_tree('tree')

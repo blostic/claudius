@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "claudius"
-  spec.version       = "0.0.2"
+  spec.version       = "0.0.3"
   spec.authors       = ["radk0s", "blost"]
   spec.email         = ["rachamot@gmail.com"]
   spec.description   = "Write a gem description"
@@ -18,7 +18,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
-  spec.add_runtime_dependency "fog"
-  spec.add_runtime_dependency "net-ssh"
-  spec.add_runtime_dependency "graph"
+  spec.add_runtime_dependency "fog", ">= 1.22.0"
+  spec.add_runtime_dependency "net-ssh", "2.9.1"
+  spec.add_runtime_dependency "graph", "2.7.0"
+  spec.add_runtime_dependency "awesome_print", "1.2.0"
 end
