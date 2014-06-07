@@ -51,3 +51,11 @@ end
 def define_providers (&block)
   MachineManager.new &block
 end
+
+def getInstance(name)
+  if ($virtual_machines.has_key?(name))
+    $virtual_machines[name]
+  else
+    raise "No machine #{name} specified"
+  end
+end

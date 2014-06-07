@@ -32,7 +32,7 @@ class ExecutionNode < Node
     start = Time.now
     commands.each_with_index do  |command, index|
       _start = Time.now
-      if instance.nil?
+      if instance.nil? or instance == 'localhost'
         puts `#{command}`
       else
         $virtual_machines[instance].invoke [[command]]
