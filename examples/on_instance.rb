@@ -1,15 +1,15 @@
 require 'claudius'
 require "awesome_print"
 
-experiment_tree = experiment 'sdsdf' do
+experiment_tree = experiment 'Test' do
   define_providers do
-    # cloud('aws', :provider => config['provider'],
-    #               :region=>config['region'],
-    #               :aws_access_key_id => config['aws_access_key_id'],
-    #               :aws_secret_access_key => config['aws_secret_access_key'])
-    # .create_instances(['t1.micro'], 'ubuntu', './Piotr-key-pair-irleand.pem',
-    #               :key_name => 'Piotr-key-pair-irleand',
-    #               :groups => 'Piotr-irleand')
+    cloud('aws', :provider => config['provider'],
+                  :region=>config['region'],
+                  :aws_access_key_id => config['aws_access_key_id'],
+                  :aws_secret_access_key => config['aws_secret_access_key'])
+    .create_instances(['t1.micro'], 'ubuntu', './Piotr-key-pair-irleand.pem',
+                  :key_name => 'Piotr-key-pair-irleand',
+                  :groups => 'Piotr-irleand')
     manual('kali', '192.168.1.116', 'root', :password => 'toor', :port => 22)
   end
 
