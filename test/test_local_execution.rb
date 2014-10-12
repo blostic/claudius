@@ -8,11 +8,12 @@ class Test_local_execution < Test::Unit::TestCase
   end
 
   def test_simple
-    experiment 'Hello' do
+    helloExp = experiment 'Hello' do
       execute do
         ssh 'mkdir Hello123456'
       end
     end
+    helloExp.run()
     result = `ls -la`
     assert_equal(true, result.include?('Hello123456'), 'Test should create a folder in current directory')
   end

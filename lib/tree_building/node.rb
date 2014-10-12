@@ -25,7 +25,6 @@ class Node
             :name => @name,
             :exec => []
         }
-
   end
 
   def run(instance)

@@ -17,7 +17,6 @@ class ExecutionNode < Node
             :before => 0,
             :exec => [],
         }
-
   end
 
   def draw_block(graph)
