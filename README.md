@@ -42,6 +42,31 @@ If you want export execution tree to image you need [Graphivz](http://www.graphv
 
 * **ssh** - specify instruction(s) which are going to be invoked on machine. As a parameter takes a string representing shell command.
 
+## Credentials
+
+In order to authenticate in AWS services (at other cloud providers also) you are obligated to provide some credentials data, which are: aws_access_key_id, aws_secret_access_key, and so on. It is recomended to store  configuration in json file and refer to them, when they are require. Sample config file looks like one below:
+
+
+``` javascript
+{
+   "provider" : "AWS",
+   "region" : "eu-west-1",
+   "aws_access_key_id" : "XXXXXXXXXXXXXXXXXXXX",
+   "aws_secret_access_key" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+   "key_name" : "My-irleand-key",
+   "groups" : "My-irleand-group"
+   "path_to_pem_file" : "./pems/my-irleand-key.pem"
+}
+```
+
+After creation, You could load your file, assign it to variable and use freely as dictionary.
+
+``` ruby
+config = load_config('./user_config.json')
+aws_key = config['aws_access_key_id']
+```
+
+
 ## Usage
 
 Check doc [here](http://blostic.github.io/claudius).
