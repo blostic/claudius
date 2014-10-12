@@ -11,10 +11,65 @@ Install it as:
 
 If you want export execution tree to image you need [Graphivz](http://www.graphviz.org).
 
+## Keywords
+
+* **experiment** - central part of claudius. Method defines a new experiment.  Parameters: 
+    * **experiment_name**
+    * **body** - block of code describing performed experiment
+    
+    You may call the following methods on returned experiment object:
+
+    * **run** - method starts previously defined experiment, 
+    * **export_tree(path = 'execution_tree_path')** - method creates an execution graph of experiment and save it as an image
+
+* **define_providers** - method takes as a parameter description of machines used in experiment. In experiments You are allowed to use 2 different types of machines
+
+    * **manual** - those machines have been created before experiment start, You should possess appropriate credentials such as: ip address, login, password etc. 
+    
+    * **cloud** -  if You like to perform your experiment in cloud, You should firstly provide necessary information to authenticate to Your cloud provider ( e.g. AWS). After successfully authentication, please define instances which You are going to use in your experiment by create_instances method.
+    
+* **foreach**  - keyword is similar to  ruby ‘each’ method, but in contrast to ordinary ‘each’, you may provide adjectives describing how parameters should be process
+	Currently supported adjectives are. 
+    * **asynchronously** - each parameter is processed in separate thread. Execution of instructions after foreach block is pursued when each loop is finished.
+    * **safely** - experiment is continued even if some exception occurs during loop execution, 
+* **on** - specify on which machine instructions should be executed, by default it is localhost. It takes instance name as a parameter.
+
+* **before**, **after** - keywords are used to construct metrics 
+
+* **concurrent**  - if elements (such as execute or foreach) are in common concurrent block, they are executed each in separate thread.
+
+* **execute** - method takes as a parameter block of code (which contain ssh methods calls), end perform instructions sequentially
+
+* **ssh** - specify instruction(s) which are going to be invoked on machine. As a parameter takes a string representing shell command.
+
+## Credentials
+
+In order to authenticate in AWS services (at other cloud providers also) you are obligated to provide some credentials data, which are: aws_access_key_id, aws_secret_access_key, and so on. It is recomended to store  configuration in json file and refer to them, when they are require. Sample config file looks like one below:
+
+
+``` javascript
+{
+   "provider" : "AWS",
+   "region" : "eu-west-1",
+   "aws_access_key_id" : "XXXXXXXXXXXXXXXXXXXX",
+   "aws_secret_access_key" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+   "key_name" : "My-irleand-key",
+   "groups" : "My-irleand-group"
+   "path_to_pem_file" : "./pems/my-irleand-key.pem"
+}
+```
+
+After creation, You could load your file, assign it to variable and use freely as dictionary.
+
+``` ruby
+config = load_config('./user_config.json')
+aws_key = config['aws_access_key_id']
+```
+
+
 ## Usage
 
 Check doc [here](http://blostic.github.io/claudius).
-
 
 ## Documentation
 
@@ -30,7 +85,6 @@ Generate to *doc* folder:
 Generate to GitHub page:
 
     groc --gh examples/* README.md
-
 
 ## Contributing
 
