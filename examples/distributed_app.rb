@@ -20,26 +20,25 @@ execution_tree = experiment 'Hello' do
                       :username => 'ubuntu',
                       :private_key_path =>config['path_to_pem_file'],
                       :key_name => config['key_name'],
-                      :image_id => 'ami-b84deccf',
                       :groups => config['groups'])
   end
   foreach ['in1', 'in2'] do |instance_name|
       on instance_name do
         before "set up docker" do
-          ssh "curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
-          ssh "sudo apt-get install git -y"
-          ssh "wget https://github.com/coreos/etcd/archive/v0.4.6.tar.gz"
-          ssh "tar xzvf v0.4.6.tar.gz"
-          ssh "mv etcd-0.4.6 /etcd"
-          ssh "rm v0.4.6.tar.gz"
+          # ssh "curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
+          # ssh "sudo apt-get install git -y"
+          # ssh "wget https://github.com/coreos/etcd/archive/v0.4.6.tar.gz"
+          # ssh "tar xzvf v0.4.6.tar.gz"
+          # ssh "mv etcd-0.4.6 etcd"
+          # ssh "rm v0.4.6.tar.gz"
         end
         execute do
-          ssh "sudo docker build  -t etcd /etcd"
-          ssh "sudo docker run --name etcd1 -d -p 4001:4001 -p 7001:7001 -v /data/etcd1:/etcd-data etcd -name #{instance_name} -peer-addr #{getOtherInstances(instance_name).hosts}:7001 -addr #{getInstance(instance_name).host}:4001 -discovery %s" % $discovery_token
+          # ssh "sudo docker build  -t etcd etcd"
+          # ssh "sudo docker run --name etcd1 -d -p 4001:4001 -p 7001:7001 -v /data/etcd1:/etcd-data etcd -name #{instance_name} -peer-addr #{getOtherInstances(instance_name).hosts}:7001 -addr #{getInstance(instance_name).host}:4001 -discovery %s" % $discovery_token
         end
         after "clean up docker containers" do
-          ssh "docker stop $(docker ps -a -q)"
-          ssh "docker rm $(docker ps -a -q)"
+          # ssh "docker stop $(docker ps -a -q)"
+          # ssh "docker rm $(docker ps -a -q)"
         end
       end
   end
