@@ -1,7 +1,9 @@
 require "claudius"
+require "json"
+
 config = load_config('./user_config.json')
 
-execution_tree = experiment 'Hello' do
+execution_tree = experiment 'Helloo' do
   define_providers do
     cloud('aws',  :provider => config['provider'],
           :region =>config['region'],
@@ -9,14 +11,14 @@ execution_tree = experiment 'Hello' do
           :aws_access_key_id => config['aws_access_key_id'],
           :aws_secret_access_key => config['aws_secret_access_key'])
     .create_instances(
-        ['t1.micro=>in1'],
+        ['m3.medium=>in2', 'm3.large=>in3', 'c3.large=>in4', 'c3.xlarge=>in5'],
         :username => 'ubuntu',
         :private_key_path =>config['path_to_pem_file'],
         :key_name => config['key_name'],
         :image_id => config['image_id'],
         :groups => config['groups'])
   end
-  foreach ['in1'], asynchronously do |instance_name|
+  foreach ['in2', 'in3', 'in4', 'in5'] do |instance_name|
     on instance_name do
       before "set up docker" do
         ssh "yes | sudo apt-get update"
@@ -57,21 +59,30 @@ execution_tree = experiment 'Hello' do
 
         ssh "cd hyperflow && echo 'amqp_url: amqp://localhost\nstorage: local\nthreads: <%= Executor::cpu_count %>' > executor_config.yml"
 
-      end
-      execute do
         ssh "mkdir data"
         ssh "cd data && wget https://gist.github.com/kfigiela/9075623/raw/dacb862176e9d576c1b23f6a243f9fa318c74bce/bootstrap.sh"
         ssh "cd data && chmod +x bootstrap.sh"
-        ssh "export PATH=$PATH:~/Montage_v3.3_patched_4/bin && ./data/bootstrap.sh 0.25"
 
-        ssh "cd hyperflow && echo \"var AMQP_URL=process.env.AMQP_URL?process.env.AMQP_URL:'amqp://localhost:5672';exports.amqp_url=AMQP_URL;exports.options={'storage':'local','workdir':'/home/ubuntu/0.25/input'}\" > functions/amqpCommand.config.js"
+      end
+      foreach [1, 2, 3] do |a|
+        foreach [0.1, 0.25, 0.4] do |size|
+          execute do
 
-        ssh "export PATH=$PATH:~/Montage_v3.3_patched_4/bin; nohup hyperflow-amqp-executor $(pwd)/hyperflow/executor_config.yml > amqp.out 2>&1 &"
-        ssh "nodejs hyperflow/scripts/dax_convert_amqp.js 0.25/workdir/dag.xml > 0.25/workdir/dag.json"
-        ssh "nodejs hyperflow/scripts/runwf.js -f 0.25/workdir/dag.json -s"
+            ssh "export PATH=$PATH:~/Montage_v3.3_patched_4/bin && ./data/bootstrap.sh #{size}#{a}"
+
+            ssh "cd hyperflow && echo \"var AMQP_URL=process.env.AMQP_URL?process.env.AMQP_URL:'amqp://localhost:5672';exports.amqp_url=AMQP_URL;exports.options={'storage':'local','workdir':'/home/ubuntu/#{size}#{a}/input'}\" > functions/amqpCommand.config.js"
+
+            ssh "export PATH=$PATH:~/Montage_v3.3_patched_4/bin; nohup hyperflow-amqp-executor $(pwd)/hyperflow/executor_config.yml > amqp.out 2>&1 &"
+            ssh "nodejs hyperflow/scripts/dax_convert_amqp.js #{size}#{a}/workdir/dag.xml > #{size}#{a}/workdir/dag.json"
+            # ssh "nohup nodejs hyperflow/scripts/runwf.js -f #{size}/workdir/dag.json -s > amqp.out 2>&1 &"
+          end
+        end
       end
     end
   end
 end
 
-ap execution_tree.run
+result = execution_tree.run
+ap result
+
+puts result.to_json
