@@ -13,14 +13,14 @@ execution_tree = experiment 'Hello' do
           :endpoint => 'https://ec2.eu-west-1.amazonaws.com/',
           :aws_access_key_id => config['aws_access_key_id'],
           :aws_secret_access_key => config['aws_secret_access_key'])
-    .create_instances(['t1.micro=>in1'],
+    .create_instances(['t2.micro=>in1'],
                       :username => 'ubuntu',
-                      :private_key_path =>'./Piotr-key-pair-irleand.pem',
-                      :key_name => 'Piotr-key-pair-irleand',
-                      :groups => ['Piotr-irleand'])
-    manual('kali', '172.16.0.109', 'root', :password => 'toor')
+                      :private_key_path =>config['path_to_pem_file'],
+                      :key_name => config['key_name'],
+                      :image_id => config['image_id'],
+                      :groups => config['groups'])
   end
-  foreach ['kali', 'in1'] do |instance_name|
+  foreach ['in1'] do |instance_name|
     concurrent do
       on 'localhost' do
         execute do

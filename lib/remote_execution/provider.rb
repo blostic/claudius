@@ -3,6 +3,7 @@ require 'cloud_provider.rb'
 require 'json'
 
 $virtual_machines = Hash.new
+$vms_manager
 
 class MachineManager
   attr_accessor :cloud_providers
@@ -40,6 +41,12 @@ class MachineManager
     end
   end
 
+  def destroy_machines
+    cloud_providers.each do |provider|
+      provider.destroy
+    end
+  end
+
 end
 
 def load_config( filename )
@@ -49,7 +56,7 @@ def load_config( filename )
 end
 
 def define_providers (&block)
-  MachineManager.new &block
+  $vms_manager = MachineManager.new &block
 end
 
 def getInstance(name)

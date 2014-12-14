@@ -95,6 +95,7 @@ class Experiment
 
   def run
     @root.run(nil)
+    # $vms_manager.destroy_machines
   end
 
   def export_tree(path = 'execution_tree')
