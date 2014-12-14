@@ -4,11 +4,16 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "claudius"
-  spec.version       = "0.0.3"
+  spec.version       = "0.0.4"
   spec.authors       = ["radk0s", "blost"]
-  spec.email         = ["rachamot@gmail.com"]
-  spec.description   = "Write a gem description"
-  spec.summary       = "Write a gem summary"
+  spec.email         = ["rachamot@gmail.com", "piotr.skibiak@gmail.com"]
+  spec.description   = 'Claudius is an easy-to-use domain specific language for cloud experiments. ' +
+      'It has been designed to speed up process of building distributed experiments and highly reduce time of ' +
+      'remote machines configuration. To avoid vendor lock-in, Claudius was build on top of fog.io library, ' +
+      'which enables flexible and powerful way to manage machine instances at various cloud providers. Remote ' +
+      'commands execution is based on  SSH protocol (SSH-2). DLS allow users to generate readable execution graph, ' +
+      'which is extremely useful for experiment flow verification and help avoid wasting your money.'
+  spec.summary       = "DSL for cloud experiments"
   spec.homepage      = "https://github.com/blostic/claudius"
   spec.license       = "MIT"
   spec.files         = `git ls-files`.split($/)
