@@ -72,7 +72,7 @@ class Node
 
   def draw_before_blocks(node, graph)
     if node.before_list.length > 0
-      id = Random.rand(100000000000000000000000)
+      id = Random.rand(2**64)
       name = "[BEFORE]\n"
       node.before_list.each do |before|
         name += ">#{before}\n"
@@ -85,7 +85,7 @@ class Node
 
   def draw_after_blocks(node, graph)
     if node.after_list.length > 0
-      id = Random.rand(100000000000000000000000)
+      id = Random.rand(2**64)
       name = "[AFTER]\n"
       node.after_list.each do |after|
         name += ">#{after}\n"
