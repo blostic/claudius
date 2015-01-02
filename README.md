@@ -1,6 +1,6 @@
 # Claudius
 
-Claudius is a easy-to-use domain specific language for clouds experiments. Language is build on [fog.io](http://fog.io), which enables flexible and powerfull way to manage virtual machine instances on various cloude poviders. Connections with virtual machines is based on ssh. To provide information experiment flow, DSL generates readable graph of execution.
+Claudius is an easy-to-use domain specific language for cloud experiments. It has been designed to speed up process of building distributed experiments and highly reduce time of remote machines configuration. To avoid vendor lock-in, Claudius was build on top of fog.io library, which enables flexible and powerful way to manage machine instances at various cloud providers. Remote commands execution is based on  SSH protocol (SSH-2). DLS allow users to generate readable execution graph, which is extremely useful for experiment flow verification and help avoid wasting money.
 
 ## Installation
 
@@ -13,14 +13,14 @@ If you want export execution tree to image you need [Graphivz](http://www.graphv
 
 ## Keywords
 
-* **experiment** - central part of claudius. Method defines a new experiment.  Parameters: 
-    * **experiment_name**
-    * **body** - block of code describing performed experiment
+* **experiment** -- main part of Claudius DLS, which defines a new experiment. After command, you are obligated to provide 2 parameters:
+    * **experiment_name** - string, which is the name of the experiment
+    * **body** - block of code describing designed experiment
     
-    You may call the following methods on returned experiment object:
+    You are allowed to call following methods on returned experiment object:
 
-    * **run** - method starts previously defined experiment, 
-    * **export_tree(path = 'execution_tree_path')** - method creates an execution graph of experiment and save it as an image
+    * **run** - method starts previously designed experiment.
+    * **export_tree(path = 'execution_tree_path')** - method generates readable execution graph. Graph is saved as an image and in .dot file format (graph description language) - for further user processing.
 
 * **define_providers** - method takes as a parameter description of machines used in experiment. In experiments You are allowed to use 2 different types of machines
 
@@ -54,8 +54,8 @@ In order to authenticate in AWS services (at other cloud providers also) you are
    "aws_access_key_id" : "XXXXXXXXXXXXXXXXXXXX",
    "aws_secret_access_key" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
    "key_name" : "My-irleand-key",
-   "groups" : "My-irleand-group"
-   "path_to_pem_file" : "./pems/my-irleand-key.pem"
+   "groups" : ["My-irleand-group"]
+   "private_key_path" : "./pems/my-irleand-key.pem"
 }
 ```
 
