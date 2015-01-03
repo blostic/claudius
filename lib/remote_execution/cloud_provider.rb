@@ -12,7 +12,7 @@ class CloudProvider
   end
 
   def create_instance(instance_type, parameters)
-    puts 'creating machine: ' + instance_type + '\n'
+    puts 'creating machine: ' + instance_type
     parameters.store(:flavor_id, instance_type.split('=>').first)
     name = ("#{@provider_name}:" + instance_type).split('=>')
     machine = @provider.servers.bootstrap(parameters)
@@ -32,7 +32,6 @@ class CloudProvider
     threads.each do |thread|
       thread.join
     end
-    puts @virtual_machines
   end
 
   def destroy

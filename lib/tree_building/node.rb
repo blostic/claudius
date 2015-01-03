@@ -3,7 +3,7 @@ require 'awesome_print'
 
 class Node
   attr_accessor :parent, :code_block, :is_safely, :node_list,
-                :before_list, :after_list, :is_asynchronously,
+                :before_list, :after_list, :is_asynchronously, :is_safely,
                 :exec_block, :commands, :name, :id
 
   def initialize(parent, block)

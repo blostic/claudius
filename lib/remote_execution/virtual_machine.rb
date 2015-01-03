@@ -25,7 +25,7 @@ class VirtualMachine
   def ssh_test(session,command)
     res = session.exec!(command)
     puts res
-    if (res!='' and res!="attributes.json\n")
+    if res!='' and res!="attributes.json\n"
       @active = true
     end
   end
