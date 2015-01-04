@@ -10,7 +10,7 @@ class Experiment
     def initialize(name, &block)
         @child_node
         @current_node = nil
-        @tmp_asynchronously = false
+        @tmp_concurrently = false
         @tmp_safely = false
         @tmp_execution_place = 'localhost'
         @in_after_scope = false
@@ -21,10 +21,18 @@ class Experiment
         instance_eval(&block) if block
     end
 
-    def asynchronously
+    def concurrently
         @child_node = ConcurrentNode.new(@current_node, nil)
         @current_node.node_list.push(@child_node)
         @current_node = @child_node
+    end
+
+    def concurrent(*args, &block)
+        @child_node = ConcurrentNode.new(@current_node, block)
+        @current_node.node_list.push(@child_node)
+        @current_node = @child_node
+        block.call
+        @current_node = @current_node.parent
     end
 
     def safely
@@ -49,7 +57,7 @@ class Experiment
         parameters.each do |parameter|
             @child_node = Node.new(@current_node, block)
             @child_node.is_safely = @tmp_safely
-            @child_node.is_asynchronously = @tmp_asynchronously
+            @child_node.is_concurrently = @tmp_concurrently
             @current_node.node_list.push(@child_node)
             @current_node = @child_node
             block.call parameter
@@ -66,18 +74,10 @@ class Experiment
         @current_node = @current_node.parent
     end
 
-    def concurrent(*args, &block)
-        @child_node = ConcurrentNode.new(@current_node, block)
-        @current_node.node_list.push(@child_node)
-        @current_node = @child_node
-        block.call
-        @current_node = @current_node.parent
-    end
-
     def execute(*args, &block)
         @child_node = ExecutionNode.new(@current_node, block)
         @child_node.is_safely = @tmp_safely
-        @child_node.is_asynchronously = @tmp_asynchronously
+        @child_node.is_concurrently = @tmp_concurrently
         @current_node.node_list.push(@child_node)
         @current_node = @child_node
         block.call

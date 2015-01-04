@@ -3,7 +3,7 @@ require 'awesome_print'
 
 class Node
   attr_accessor :parent, :code_block, :is_safely, :node_list,
-                :before_list, :after_list, :is_asynchronously, :is_safely,
+                :before_list, :after_list, :is_concurrently, :is_safely,
                 :exec_block, :commands, :name, :id
 
   def initialize(parent, block)
@@ -13,7 +13,7 @@ class Node
     self.before_list = Array.new
     self.after_list = Array.new
     self.is_safely = false
-    self.is_asynchronously = false
+    self.is_concurrently = false
     self.commands = Array.new
     self.id = self.to_s
     self.name = '[Node]'
