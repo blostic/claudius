@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "claudius"
-  spec.version       = "0.0.4"
+  spec.version       = "0.0.5"
   spec.authors       = ["radk0s", "blost"]
   spec.email         = ["rachamot@gmail.com", "piotr.skibiak@gmail.com"]
   spec.description   = 'Claudius is an easy-to-use domain specific language for cloud experiments. ' +

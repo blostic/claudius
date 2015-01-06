@@ -16,14 +16,12 @@ class OnNode < Node
       puts @instance
       @total_time[:exec].push(node.run(@instance))
     end
-
     after_exec(@instance, @total_time)
-
-    return @total_time
+    @total_time
   end
 
   def draw_block(graph)
-    graph.hexagon << graph.node(id)
+    graph.tripleoctagon << graph.node(id)
     graph.node(id).label(name)
   end
 

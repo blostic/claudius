@@ -1,5 +1,6 @@
 require 'concurrent_node.rb'
 require 'on_node.rb'
+require 'foreach_node.rb'
 require 'execution_node.rb'
 
 def experiment(name, &block)
@@ -22,9 +23,11 @@ class Experiment
     end
 
     def concurrently
-        @child_node = ConcurrentNode.new(@current_node, nil)
-        @current_node.node_list.push(@child_node)
-        @current_node = @child_node
+        @tmp_concurrently = true
+    end
+
+    def safely
+        @tmp_safely = true
     end
 
     def concurrent(*args, &block)
@@ -33,11 +36,6 @@ class Experiment
         @current_node = @child_node
         block.call
         @current_node = @current_node.parent
-    end
-
-    def safely
-        @current_node.is_safely = true
-        puts 'should be safely'
     end
 
     def before(*args, &block)
@@ -53,19 +51,30 @@ class Experiment
     end
 
     def foreach(parameters, *args, &block)
-        # puts @current_node.name
+
+        @current_node = ForeachNode.new(@current_node, block)
+
+        @current_node.is_safely = @tmp_safely
+        @tmp_safely = false
+
+        @current_node.is_concurrently = @tmp_concurrently
+        @tmp_concurrently = false
+
+        @current_node.parent.node_list.push(@current_node)
+
         parameters.each do |parameter|
             @child_node = Node.new(@current_node, block)
-            @child_node.is_safely = @tmp_safely
-            @child_node.is_concurrently = @tmp_concurrently
+            @child_node.name = "Parameter: #{parameter}"
             @current_node.node_list.push(@child_node)
             @current_node = @child_node
             block.call parameter
             @current_node = @current_node.parent
         end
+
+        @current_node = @current_node.parent
     end
 
-    def on(instance, *args, &block)
+    def on(instance, *args, &block)o
         @child_node = OnNode.new(@current_node, instance, block)
 
         @current_node.node_list.push(@child_node)
@@ -95,11 +104,17 @@ class Experiment
     end
 
     def run
-        @root.run(nil)
+        begin
+            @root.run(nil)
+        rescue
+            '{error : true}'
+        end
     end
 
     def destroy_machines
-        $vms_manager.destroy_machines
+        if $vms_manager
+            $vms_manager.destroy_machines
+        end
     end
 
     def export_tree(path = 'execution_tree')

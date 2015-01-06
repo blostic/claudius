@@ -23,7 +23,7 @@ class ConcurrentNode < Node
         pids.each{|pid| Process.waitpid(pid)}
 
         after_exec(instance, @total_time)
-        return @total_time
+        @total_time
     end
 
     def draw_block(graph)

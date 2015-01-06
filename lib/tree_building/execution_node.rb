@@ -42,7 +42,7 @@ class ExecutionNode < Node
     finish = Time.now
 
     @total_time[:total] = finish - start
-    return @total_time
+    @total_time
   end
 
 end
