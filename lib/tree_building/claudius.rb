@@ -74,7 +74,7 @@ class Experiment
         @current_node = @current_node.parent
     end
 
-    def on(instance, *args, &block)o
+    def on(instance, *args, &block)
         @child_node = OnNode.new(@current_node, instance, block)
 
         @current_node.node_list.push(@child_node)
