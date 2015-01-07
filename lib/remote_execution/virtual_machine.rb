@@ -8,10 +8,10 @@ def s_ssh(session, commands)
 end
 
 class VirtualMachine
-  attr_accessor :host, :username, :args, :log_file, :active
+  attr_accessor :ip_address, :username, :args, :log_file, :active
 
-  def initialize(host, username, *args)
-    @host = host
+  def initialize(ip_address, username, *args)
+    @ip_address = ip_address
     @username = username
     args[0].store(:timeout, 5)
     @args = args
@@ -19,7 +19,7 @@ class VirtualMachine
   end
 
   def to_s
-    "[host: #{host}, user: #{username}]"
+    "[IP: #{ip_address}, user: #{username}]"
   end
 
   def ssh_test(session,command)
@@ -31,7 +31,7 @@ class VirtualMachine
   end
 
   def invoke(commands)
-    Net::SSH.start(host, username, *args) do |ssh|
+    Net::SSH.start(ip_address, username, *args) do |ssh|
       commands.each do |command|
         print command , "\n"
         s_ssh ssh, command

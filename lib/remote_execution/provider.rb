@@ -22,8 +22,8 @@ class MachineManager
     end
   end
 
-  def manual(name, host, username, *args)
-    vm = VirtualMachine.new(host, username, *args)
+  def manual(name, ip, username, *args)
+    vm = VirtualMachine.new(ip, username, *args)
     @virtual_machines.store(name, vm)
   end
 

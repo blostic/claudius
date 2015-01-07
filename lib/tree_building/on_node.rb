@@ -5,7 +5,7 @@ class OnNode < Node
 	def initialize (parent, instance, block)
 		super(parent, block)
 		self.instance = instance
-    self.name = "[OnNode]\n" + instance
+    self.name = "[OnInstance]\n" + instance
   end
 
   def run(instance)
