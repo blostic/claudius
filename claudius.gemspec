@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = "claudius"
   spec.version       = "0.0.5"
   spec.authors       = ["radk0s", "blost"]
-  spec.email         = ["rachamot@gmail.com", "piotr.skibiak@gmail.com"]
+  spec.email         = ["rachamot@gmail.com"]
   spec.description   = 'Claudius is an easy-to-use domain specific language for cloud experiments. ' +
       'It has been designed to speed up process of building distributed experiments and highly reduce time of ' +
       'remote machines configuration. To avoid vendor lock-in, Claudius was build on top of fog.io library, ' +
